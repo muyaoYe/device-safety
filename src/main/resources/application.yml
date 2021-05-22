@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    include: druid
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: ZtyLCmM2cPWzPcfX
+    username: soc
+    url: jdbc:mysql://42.193.148.230:3306/soc?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    druid:
+      initial-size: 8
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+
+#这个是使用日志显示
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
