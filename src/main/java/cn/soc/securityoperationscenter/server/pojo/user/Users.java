@@ -1,4 +1,4 @@
-package cn.soc.securityoperationscenter.server.pojo;
+package cn.soc.securityoperationscenter.server.pojo.user;
 
 import java.util.Date;
 

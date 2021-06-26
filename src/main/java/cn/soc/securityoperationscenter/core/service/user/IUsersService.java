@@ -1,9 +1,10 @@
-package cn.soc.securityoperationscenter.server.dao;
+package cn.soc.securityoperationscenter.core.service.user;
 
-import cn.soc.securityoperationscenter.server.pojo.Users;
+import cn.soc.securityoperationscenter.server.pojo.user.Users;
+
 import java.util.List;
 
-public interface UsersMapper {
+public interface IUsersService {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Users record);
