@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <properties resource="jdbc.properties"/>
+    <properties resource="application.yml"/>
     <classPathEntry location="${classPath}"/>
     <!-- MyBatis3、MyBatis3Simple、MyBatis3DynamicSql最后一个需要版本支持 -->
     <context id="DB2Tables" targetRuntime="MyBatis3Simple">
