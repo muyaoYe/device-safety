@@ -25,19 +25,19 @@
             生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径
          也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
-        <javaModelGenerator targetPackage="cn.soc.securityoperationscenter.server.pojo.mission" targetProject="${project}">
+        <javaModelGenerator targetPackage="cn.soc.securityoperationscenter.server.pojo.dictionary" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
             <!-- 从数据库返回的值被清理前后的空格  -->
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!--对应的mapper.xml文件  -->
-        <sqlMapGenerator targetPackage="cn.soc.securityoperationscenter.server.mapper.mission" targetProject="${project}">
+        <sqlMapGenerator targetPackage="cn.soc.securityoperationscenter.server.mapper.dictionary" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.soc.securityoperationscenter.server.dao.mission" targetProject="${project}">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.soc.securityoperationscenter.server.dao.dictionary" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
@@ -45,7 +45,8 @@
         <!--    以上的写完之后，去test/java  运行generater 直接右键——>run  -->
         <!--     生成完一个后记得注释掉或者直接在上面修改，否则会覆盖生成  -->
 <!--        <table tableName="users" domainObjectName="Users" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
-        <table tableName="mission" domainObjectName="Mission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+<!--        <table tableName="data_dictionary" domainObjectName="DataDictionary" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
+        <table tableName="dictionary_type" domainObjectName="DictionaryType" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <!--<table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <table tableName="sys_dict" domainObjectName="SysDict" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
