@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.soc.securityoperationscenter.server.dao.library.WarningLibraryMapper">
+  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.server.pojo.library.WarningLibrary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="warning_name" jdbcType="VARCHAR" property="warningName" />
+    <result column="mission_main_type" jdbcType="VARCHAR" property="missionMainType" />
+    <result column="mission_sub_type" jdbcType="VARCHAR" property="missionSubType" />
+    <result column="create_person" jdbcType="INTEGER" property="createPerson" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from safety_warning_library
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.soc.securityoperationscenter.server.pojo.library.WarningLibrary">
+    insert into safety_warning_library (id, warning_name, mission_main_type, 
+      mission_sub_type, create_person, create_time, 
+      url)
+    values (#{id,jdbcType=INTEGER}, #{warningName,jdbcType=VARCHAR}, #{missionMainType,jdbcType=VARCHAR}, 
+      #{missionSubType,jdbcType=VARCHAR}, #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{url,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.server.pojo.library.WarningLibrary">
+    update safety_warning_library
+    set warning_name = #{warningName,jdbcType=VARCHAR},
+      mission_main_type = #{missionMainType,jdbcType=VARCHAR},
+      mission_sub_type = #{missionSubType,jdbcType=VARCHAR},
+      create_person = #{createPerson,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, warning_name, mission_main_type, mission_sub_type, create_person, create_time, 
+    url
+    from safety_warning_library
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, warning_name, mission_main_type, mission_sub_type, create_person, create_time, 
+    url
+    from safety_warning_library
+  </select>
+</mapper>

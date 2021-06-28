@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.soc.securityoperationscenter.server.dao.library.OperationLibraryMapper">
+  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.server.pojo.library.OperationLibrary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operation_name" jdbcType="VARCHAR" property="operationName" />
+    <result column="operation_type" jdbcType="VARCHAR" property="operationType" />
+    <result column="create_person" jdbcType="INTEGER" property="createPerson" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from safety_operation_library
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.soc.securityoperationscenter.server.pojo.library.OperationLibrary">
+    insert into safety_operation_library (id, operation_name, operation_type, 
+      create_person, create_time, url
+      )
+    values (#{id,jdbcType=INTEGER}, #{operationName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, 
+      #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.server.pojo.library.OperationLibrary">
+    update safety_operation_library
+    set operation_name = #{operationName,jdbcType=VARCHAR},
+      operation_type = #{operationType,jdbcType=VARCHAR},
+      create_person = #{createPerson,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, operation_name, operation_type, create_person, create_time, url
+    from safety_operation_library
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, operation_name, operation_type, create_person, create_time, url
+    from safety_operation_library
+  </select>
+</mapper>
