@@ -1,12 +1,11 @@
-package cn.soc.securityoperationscenter.server.dao.library;
+package cn.soc.securityoperationscenter.core.service.library;
 
 import cn.soc.securityoperationscenter.server.pojo.library.AnnouncementLibrary;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface AnnouncementLibraryMapper {
+public interface IAnnouncementLibraryService {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(AnnouncementLibrary record);

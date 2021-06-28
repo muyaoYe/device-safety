@@ -1,12 +1,11 @@
-package cn.soc.securityoperationscenter.server.dao.library;
+package cn.soc.securityoperationscenter.core.service.library;
 
 import cn.soc.securityoperationscenter.server.pojo.library.ResponseLibrary;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface ResponseLibraryMapper {
+public interface IResponseLibraryService {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(ResponseLibrary record);

@@ -1,12 +1,11 @@
-package cn.soc.securityoperationscenter.server.dao.warning;
+package cn.soc.securityoperationscenter.core.service.warning;
 
 import cn.soc.securityoperationscenter.server.pojo.warning.WarningManager;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface WarningManagerMapper {
+public interface IWarningManagerService {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(WarningManager record);

@@ -1,12 +1,11 @@
-package cn.soc.securityoperationscenter.server.dao.library;
+package cn.soc.securityoperationscenter.core.service.library;
 
 import cn.soc.securityoperationscenter.server.pojo.library.OperationLibrary;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface OperationLibraryMapper {
+public interface IOperationLibraryService {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(OperationLibrary record);

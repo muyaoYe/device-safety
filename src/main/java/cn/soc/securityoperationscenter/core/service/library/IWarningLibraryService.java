@@ -1,12 +1,11 @@
-package cn.soc.securityoperationscenter.server.dao.library;
+package cn.soc.securityoperationscenter.core.service.library;
 
 import cn.soc.securityoperationscenter.server.pojo.library.WarningLibrary;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface WarningLibraryMapper {
+public interface IWarningLibraryService {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(WarningLibrary record);
