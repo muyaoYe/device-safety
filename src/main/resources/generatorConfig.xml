@@ -25,19 +25,19 @@
             生成model模型，对应的包路径，以及文件存放路径(targetProject)，targetProject可以指定具体的路径
          也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
         -->
-        <javaModelGenerator targetPackage="cn.soc.securityoperationscenter.server.pojo.netsecurity" targetProject="${project}">
+        <javaModelGenerator targetPackage="cn.soc.securityoperationscenter.server.pojo.library" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
             <!-- 从数据库返回的值被清理前后的空格  -->
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
         <!--对应的mapper.xml文件  -->
-        <sqlMapGenerator targetPackage="cn.soc.securityoperationscenter.server.mapper.netsecurity" targetProject="${project}">
+        <sqlMapGenerator targetPackage="cn.soc.securityoperationscenter.server.mapper.library" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
         <!-- 对应的Mapper接口类文件 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.soc.securityoperationscenter.server.dao.netsecurity" targetProject="${project}">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.soc.securityoperationscenter.server.dao.library" targetProject="${project}">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
@@ -50,7 +50,12 @@
 <!--        <table tableName="risk_track_mission" domainObjectName="RiskTrackMission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
 <!--        <table tableName="app_risk_check_mission" domainObjectName="AppRiskCheckMission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
 <!--        <table tableName="app_risk_track_mission" domainObjectName="AppRiskTrackMission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
-        <table tableName="log_analyse_mission" domainObjectName="LogAnalyseMission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+<!--        <table tableName="log_analyse_mission" domainObjectName="LogAnalyseMission" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
+<!--        <table tableName="safety_warning_manager" domainObjectName="WarningManager" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>-->
+        <table tableName="safety_warning_library" domainObjectName="WarningLibrary" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="safety_response_library" domainObjectName="ResponseLibrary" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="safety_operation_library" domainObjectName="OperationLibrary" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+        <table tableName="safety_announcement_library" domainObjectName="AnnouncementLibrary" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <!--<table tableName="sys_role" domainObjectName="SysRole" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <table tableName="sys_menu" domainObjectName="SysMenu" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
         <table tableName="sys_dict" domainObjectName="SysDict" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
