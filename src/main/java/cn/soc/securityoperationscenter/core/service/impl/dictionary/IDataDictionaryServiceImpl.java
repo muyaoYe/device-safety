@@ -4,9 +4,10 @@ import cn.soc.securityoperationscenter.core.service.dictionary.IDataDictionarySe
 import cn.soc.securityoperationscenter.server.dao.dictionary.DataDictionaryMapper;
 import cn.soc.securityoperationscenter.server.pojo.dictionary.DataDictionary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class IDataDictionaryServiceImpl implements IDataDictionaryService {
 
     @Autowired
