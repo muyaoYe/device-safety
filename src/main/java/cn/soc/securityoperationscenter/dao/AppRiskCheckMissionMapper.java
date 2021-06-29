@@ -1,10 +1,8 @@
 package cn.soc.securityoperationscenter.dao;
 
-import cn.soc.securityoperationscenter.entity.AppRiskCheckMission;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.soc.securityoperationscenter.entity.AppRiskCheckMission;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
