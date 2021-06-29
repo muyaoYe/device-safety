@@ -16,11 +16,13 @@ spring:
       max-active: 20
       max-wait: 60000
 
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 #这个是使用日志显示
 mybatis:
+  mapper-locations: classpath:mybatis/*Mapper.xml
+  type-aliases-package: cn.soc.securityoperationscenter.entity
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
