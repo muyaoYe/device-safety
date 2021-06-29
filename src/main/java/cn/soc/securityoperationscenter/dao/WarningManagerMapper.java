@@ -1,10 +1,11 @@
 package cn.soc.securityoperationscenter.dao;
 
 import cn.soc.securityoperationscenter.entity.WarningManager;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-@ResponseBody
+@Repository
 public interface WarningManagerMapper {
     int deleteByPrimaryKey(Integer id);
 
