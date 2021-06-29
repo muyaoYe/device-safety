@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.soc.securityoperationscenter.server.dao.warning.WarningManagerMapper">
-  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.server.pojo.warning.WarningManager">
+<mapper namespace="cn.soc.securityoperationscenter.dao.WarningManagerMapper">
+  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.WarningManager">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="mission_name" jdbcType="VARCHAR" property="missionName" />
     <result column="mission_status" jdbcType="VARCHAR" property="missionStatus" />
@@ -12,13 +12,47 @@
     delete from safety_warning_manager
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.soc.securityoperationscenter.server.pojo.warning.WarningManager">
+  <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
     insert into safety_warning_manager (id, mission_name, mission_status, 
       create_person, create_time)
     values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionStatus,jdbcType=VARCHAR}, 
       #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.server.pojo.warning.WarningManager">
+  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
+    update safety_warning_manager
+    set mission_name = #{missionName,jdbcType=VARCHAR},
+      mission_status = #{missionStatus,jdbcType=VARCHAR},
+      create_person = #{createPerson,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, mission_name, mission_status, create_person, create_time
+    from safety_warning_manager
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, mission_name, mission_status, create_person, create_time
+    from safety_warning_manager
+  </select>
+  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.WarningManager">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mission_name" jdbcType="VARCHAR" property="missionName" />
+    <result column="mission_status" jdbcType="VARCHAR" property="missionStatus" />
+    <result column="create_person" jdbcType="INTEGER" property="createPerson" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from safety_warning_manager
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
+    insert into safety_warning_manager (id, mission_name, mission_status, 
+      create_person, create_time)
+    values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionStatus,jdbcType=VARCHAR}, 
+      #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
     update safety_warning_manager
     set mission_name = #{missionName,jdbcType=VARCHAR},
       mission_status = #{missionStatus,jdbcType=VARCHAR},

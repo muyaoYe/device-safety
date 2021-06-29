@@ -35,7 +35,7 @@ public class Assets {
 
     private String email;
 
-    private String tel;
+    private String telphone;
 
     private String note;
 
@@ -175,12 +175,12 @@ public class Assets {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getTel() {
-        return tel;
+    public String getTelphone() {
+        return telphone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
+    public void setTelphone(String telphone) {
+        this.telphone = telphone == null ? null : telphone.trim();
     }
 
     public String getNote() {

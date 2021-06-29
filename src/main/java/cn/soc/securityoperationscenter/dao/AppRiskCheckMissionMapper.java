@@ -1,12 +1,13 @@
 package cn.soc.securityoperationscenter.dao;
 
-
 import cn.soc.securityoperationscenter.entity.AppRiskCheckMission;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import java.util.List;
 
-@Repository
+@Mapper
 public interface AppRiskCheckMissionMapper {
     int deleteByPrimaryKey(Integer id);
 

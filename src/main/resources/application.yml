@@ -8,6 +8,7 @@ spring:
     jdbc_url: jdbc:mysql://42.193.148.230:3306/soc?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true
     jdbc_username: soc
     project: src/main/java
+    type: com.alibaba.druid.pool.DruidDataSource
 
     druid:
       initial-size: 8
@@ -15,8 +16,13 @@ spring:
       max-active: 20
       max-wait: 60000
 
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
 #这个是使用日志显示
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
 
