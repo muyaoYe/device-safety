@@ -44,4 +44,10 @@ public class IDataDictionaryServiceImpl implements IDataDictionaryService {
         int i = dataDictionaryMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<DataDictionary> selectByName(String dictionaryName) {
+        List<DataDictionary> dataDictionaryList = dataDictionaryMapper.selectByName(dictionaryName);
+        return dataDictionaryList;
+    }
 }

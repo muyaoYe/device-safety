@@ -16,4 +16,6 @@ public interface IDataDictionaryService {
     List<DataDictionary> selectAll();
 
     int updateByPrimaryKey(DataDictionary record);
+
+    List<DataDictionary> selectByName(String dictionaryName);
 }

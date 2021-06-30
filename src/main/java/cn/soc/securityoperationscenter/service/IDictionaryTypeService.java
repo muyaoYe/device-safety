@@ -16,4 +16,6 @@ public interface IDictionaryTypeService {
     List<DictionaryType> selectAll();
 
     int updateByPrimaryKey(DictionaryType record);
+
+    List<DictionaryType> selectByName(String name);
 }

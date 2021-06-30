@@ -44,4 +44,10 @@ public class IDictionaryTypeServiceImpl implements IDictionaryTypeService {
         int i = dictionaryTypeMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public List<DictionaryType> selectByName(String name) {
+        List<DictionaryType> dictionaryTypeList = dictionaryTypeMapper.selectByName(name);
+        return dictionaryTypeList;
+    }
 }

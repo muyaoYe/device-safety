@@ -27,7 +27,7 @@ public class SecurityController {
     @Autowired
     private IAppRiskTrackMissionService appRiskTrackMissionService;
 
-    //应用安全检测-list
+    //查询所有应用安全检测-list
     @RequestMapping("/checkAll")
     public CommonResult selectAllCheck() {
         //得到集合
@@ -53,15 +53,19 @@ public class SecurityController {
 
         //insert操作
         int i = appRiskCheckMissionService.insert(appRiskCheck);
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
 
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
     }
 
     //删除应用安全检测数据
     @RequestMapping("/deleteCheck")
     public  CommonResult deleteCheck(@RequestBody JSONObject json){
         //获取要删除的id的索引
-        int id = json.getInteger("id");
+        Integer id = Integer.parseInt(json.getString("id"));
         //删除操作
         int i = appRiskCheckMissionService.deleteByPrimaryKey(id);
 
@@ -96,8 +100,11 @@ public class SecurityController {
 
         //insert操作
         int i = appRiskTrackMissionService.insert(appRiskTrack);
-
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
     }
 
 }

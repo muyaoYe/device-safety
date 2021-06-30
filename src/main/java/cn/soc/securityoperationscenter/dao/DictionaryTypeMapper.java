@@ -17,4 +17,6 @@ public interface DictionaryTypeMapper {
     List<DictionaryType> selectAll();
 
     int updateByPrimaryKey(DictionaryType record);
+
+    List<DictionaryType> selectByName(String name);
 }
