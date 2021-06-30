@@ -43,46 +43,5 @@
     create_time
     from app_risk_track_mission
   </select>
-  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.AppRiskTrackMission">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="mission_name" jdbcType="VARCHAR" property="missionName" />
-    <result column="mission_type" jdbcType="VARCHAR" property="missionType" />
-    <result column="mission_status" jdbcType="VARCHAR" property="missionStatus" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from app_risk_track_mission
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.AppRiskTrackMission">
-    insert into app_risk_track_mission (id, mission_name, mission_type, 
-      mission_status, update_time, create_person, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionType,jdbcType=VARCHAR}, 
-      #{missionStatus,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{createPerson,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.AppRiskTrackMission">
-    update app_risk_track_mission
-    set mission_name = #{missionName,jdbcType=VARCHAR},
-      mission_type = #{missionType,jdbcType=VARCHAR},
-      mission_status = #{missionStatus,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      create_person = #{createPerson,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, mission_name, mission_type, mission_status, update_time, create_person, 
-    create_time
-    from app_risk_track_mission
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, mission_name, mission_type, mission_status, update_time, create_person, 
-    create_time
-    from app_risk_track_mission
-  </select>
+
 </mapper>

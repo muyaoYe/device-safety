@@ -33,36 +33,5 @@
     select id, name, code, note
     from dictionary_type
   </select>
-  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.DictionaryType">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="note" jdbcType="VARCHAR" property="note" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from dictionary_type
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.DictionaryType">
-    insert into dictionary_type (id, name, code, 
-      note)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.DictionaryType">
-    update dictionary_type
-    set name = #{name,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      note = #{note,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, name, code, note
-    from dictionary_type
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, name, code, note
-    from dictionary_type
-  </select>
+
 </mapper>
