@@ -36,7 +36,11 @@
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select id, name, code, note
     from dictionary_type
-    where name = #{name,jdbcType=VARCHAR}
+    <where>
+      <if test="name!=null and name!='' ">
+        and name like '%${name}%'
+      </if>
+    </where>
   </select>
 
 </mapper>

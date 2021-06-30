@@ -43,11 +43,17 @@
     note
     from data_dictionary
   </select>
+
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select id, dictionary_name, dictionary_core, dictionary_value, data_type, dictionary_type,
     note
     from data_dictionary
-    where dictionary_name = #{dictionaryName,jdbcType=VARCHAR}
+    <where>
+        <if test="dictionaryName!=null and dictionaryName!='' ">
+          and dictionary_name like '%${dictionaryName}%'
+        </if>
+    </where>
+
   </select>
 
 </mapper>
