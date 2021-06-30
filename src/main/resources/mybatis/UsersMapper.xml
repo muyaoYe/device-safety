@@ -22,8 +22,8 @@
       status, lastLoginTime, registerTime
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{jurisdiction,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, default, default
+      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, default,
+            default, default, default
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Users">

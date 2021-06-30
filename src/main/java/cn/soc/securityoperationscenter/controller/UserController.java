@@ -56,9 +56,7 @@ public class UserController {
         user.setPassword(password);
         user.setTelephone(telephone);
         user.setEmail(email);
-        //由于权限和状态不能为空 故为默认值0
-        user.setStatus(0);
-        user.setJurisdiction(0);
+
         int i = usersService.insert(user);
         if (i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
