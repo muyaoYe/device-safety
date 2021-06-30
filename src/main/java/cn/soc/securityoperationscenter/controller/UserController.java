@@ -11,14 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author wjs
- * @Classname userController
- * @Description TODO
- * @Date 2021/5/23 0:24
- * @Created by wjs
- */
+
 @RestController
+@RequestMapping("/userController")
 @ResponseBody
 public class UserController {
 
@@ -31,7 +26,9 @@ public class UserController {
     }
 
     @RequestMapping("/login")
+
     public CommonResult toLogin(@RequestBody JSONObject json){
+        System.out.println("进入了用户登录方法");
         //接收url传值
         String username = json.getString("username");
         String password = json.getString("password");
