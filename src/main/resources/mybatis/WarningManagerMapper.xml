@@ -13,17 +13,17 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
-    insert into safety_warning_manager (id, mission_name, mission_status, 
-      create_person, create_time)
-    values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionStatus,jdbcType=VARCHAR}, 
-      #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    insert into safety_warning_manager (id, mission_name, mission_status,
+                                        create_person, create_time)
+    values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionStatus,jdbcType=VARCHAR},
+            #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
     update safety_warning_manager
     set mission_name = #{missionName,jdbcType=VARCHAR},
-      mission_status = #{missionStatus,jdbcType=VARCHAR},
-      create_person = #{createPerson,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+        mission_status = #{missionStatus,jdbcType=VARCHAR},
+        create_person = #{createPerson,jdbcType=INTEGER},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
