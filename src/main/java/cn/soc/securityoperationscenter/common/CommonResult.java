@@ -1,37 +1,37 @@
 package cn.soc.securityoperationscenter.common;
 
 public class CommonResult {
-    private String retCode;
-    private String retMessage;
-    private Object result;
+    private String code;
+    private String msg;
+    private Object data;
 
-    public String getRetCode() {
-        return retCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setRetCode(String retCode) {
-        this.retCode = retCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getRetMessage() {
-        return retMessage;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setRetMessage(String retMessage) {
-        this.retMessage = retMessage;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public Object getResult() {
-        return result;
+    public Object getData() {
+        return data;
     }
 
-    public void setResult(Object result) {
-        this.result = result;
+    public void setData(Object data) {
+        this.data = data;
     }
-    public CommonResult(String retCode, String retMessage, Object result) {
-        this.retCode = retCode;
-        this.retMessage = retMessage;
-        this.result = result;
+    public CommonResult(String code, String msg, Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
     }
 
     public CommonResult() {

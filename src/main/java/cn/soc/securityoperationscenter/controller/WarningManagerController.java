@@ -27,7 +27,7 @@ public class WarningManagerController {
 
         System.out.println("进入到WarningManagerController的selectAll方法里了");
 
-        return new CommonResult("101", "查询成功", warningManagerService.selectAll());
+        return new CommonResult("200", "success", warningManagerService.selectAll());
     }
 
     public CommonResult insert(@RequestBody JSONObject json) {
@@ -35,6 +35,6 @@ public class WarningManagerController {
         warningManager.setMissionName(json.getString("missionName"));
         warningManager.setMissionStatus(json.getString("missionStatus"));
 
-        return new CommonResult("101", "新增成功", null);
+        return new CommonResult("200", "success", null);
     }
 }
