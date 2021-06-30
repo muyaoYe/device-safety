@@ -54,8 +54,7 @@
     select id, username, password, telephone, email, jurisdiction, status, lastLoginTime,
     registerTime
     from users
-    where username = #{username,jdbcType=VARCHAR},
-    password = #{password,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
 
 </mapper>

@@ -25,7 +25,6 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-
     public CommonResult toLogin(@RequestBody JSONObject json){
         System.out.println("进入了用户登录方法");
         //接收url传值
