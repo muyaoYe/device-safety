@@ -3,6 +3,7 @@ package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
 import cn.soc.securityoperationscenter.entity.WarningManager;
+import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.IWarningManagerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class WarningManagerController {
 
         System.out.println("进入到WarningManagerController的selectAll方法里了");
 
-        return new CommonResult("200", "success", warningManagerService.selectAll());
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), warningManagerService.selectAll());
     }
 
     public CommonResult insert(@RequestBody JSONObject json) {
@@ -35,6 +36,6 @@ public class WarningManagerController {
         warningManager.setMissionName(json.getString("missionName"));
         warningManager.setMissionStatus(json.getString("missionStatus"));
 
-        return new CommonResult("200", "success", null);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
     }
 }

@@ -1,15 +1,15 @@
 package cn.soc.securityoperationscenter.common;
 
 public class CommonResult {
-    private String code;
+    private Integer code;
     private String msg;
     private Object data;
 
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -28,7 +28,7 @@ public class CommonResult {
     public void setData(Object data) {
         this.data = data;
     }
-    public CommonResult(String code, String msg, Object data) {
+    public CommonResult(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;

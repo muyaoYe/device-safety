@@ -1,15 +1,15 @@
 package cn.soc.securityoperationscenter.enums;
 
 public enum CodeEnum {
-    SUCCESS("200", "success"),
+    SUCCESS(200, "success"),
 
-    ERROR("100", "error");
+    ERROR(100, "error");
 
 
-    private final String value;
+    private final Integer value;
     private final String text;
 
-    CodeEnum(String  value, String text) {
+    CodeEnum(Integer  value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -19,7 +19,7 @@ public enum CodeEnum {
      *
      * @return the value
      */
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -38,7 +38,7 @@ public enum CodeEnum {
      * @param value the value
      * @return the by value
      */
-    public static CodeEnum getByValue(String  value) {
+    public static CodeEnum getByValue(Integer  value) {
         for (CodeEnum temp : CodeEnum.values()) {
             if (temp.getValue().equals(value) ) {
                 return temp;

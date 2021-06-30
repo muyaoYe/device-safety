@@ -67,7 +67,7 @@ public class UserController {
     @RequestMapping("/logout")
     public  CommonResult toLayout(@RequestBody JSONObject json){
 
-        return new CommonResult("200","success",null);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
     }
 
 
