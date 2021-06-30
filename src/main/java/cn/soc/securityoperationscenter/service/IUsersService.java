@@ -1,8 +1,7 @@
 package cn.soc.securityoperationscenter.service;
 
-
-
 import cn.soc.securityoperationscenter.entity.Users;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +17,5 @@ public interface IUsersService {
     int updateByPrimaryKey(Users record);
 
     Users selectByNamePass(String username,String password);
+
 }

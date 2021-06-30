@@ -1,15 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
-
 import cn.soc.securityoperationscenter.dao.UsersMapper;
 import cn.soc.securityoperationscenter.entity.Users;
 import cn.soc.securityoperationscenter.service.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public class IUsersServiceImpl implements IUsersService {
 
     @Autowired
@@ -29,8 +26,8 @@ public class IUsersServiceImpl implements IUsersService {
 
     @Override
     public Users selectByPrimaryKey(Integer id) {
-        Users users = usersMapper.selectByPrimaryKey(id);
-        return users;
+        Users user = usersMapper.selectByPrimaryKey(id);
+        return user;
     }
 
     @Override
@@ -50,6 +47,4 @@ public class IUsersServiceImpl implements IUsersService {
         Users user = usersMapper.selectByNamePass(username,password);
         return user;
     }
-
-
 }

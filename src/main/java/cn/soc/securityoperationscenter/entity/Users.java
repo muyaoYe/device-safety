@@ -13,9 +13,9 @@ public class Users {
 
     private String email;
 
-    private Integer right;
+    private Integer jurisdiction;
 
-    private Integer state;
+    private Integer status;
 
     private Date lastlogintime;
 
@@ -61,20 +61,20 @@ public class Users {
         this.email = email == null ? null : email.trim();
     }
 
-    public Integer getRight() {
-        return right;
+    public Integer getJurisdiction() {
+        return jurisdiction;
     }
 
-    public void setRight(Integer right) {
-        this.right = right;
+    public void setJurisdiction(Integer jurisdiction) {
+        this.jurisdiction = jurisdiction;
     }
 
-    public Integer getState() {
-        return state;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getLastlogintime() {

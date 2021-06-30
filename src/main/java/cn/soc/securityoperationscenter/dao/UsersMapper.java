@@ -1,12 +1,10 @@
 package cn.soc.securityoperationscenter.dao;
 
-
 import cn.soc.securityoperationscenter.entity.Users;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Repository
 public interface UsersMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,6 +16,6 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
 
-    Users selectByNamePass(String username,String password);
+    Users selectByNamePass(@Param("username") String username,@Param("password")  String password);
 
 }
