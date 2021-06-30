@@ -60,14 +60,27 @@ public class UserController {
         int i = usersService.insert(user);
         if (i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
         }
-        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+
     }
 
     @RequestMapping("/logout")
     public  CommonResult toLayout(@RequestBody JSONObject json){
+        //获取前端传入的数据
+        //id
+        int id = Integer.parseInt(json.getString("id"));
+        Users user = usersService.selectByPrimaryKey(id);
+        //将用户的登录状态设为未登录
+        user.setStatus(0);
+        int i = usersService.updateByPrimaryKey(user);
+        if (i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+        }
 
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
     }
 
 
