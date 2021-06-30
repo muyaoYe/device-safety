@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/userController")
@@ -25,6 +27,7 @@ public class UserController {
         return "this is a test";
     }
 
+    //登录
     @RequestMapping("/login")
     public CommonResult toLogin(@RequestBody JSONObject json){
         System.out.println("进入了用户登录方法");
@@ -43,6 +46,7 @@ public class UserController {
         return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
     }
 
+    //注册
     @RequestMapping("/register")
     public CommonResult toRegist(@RequestBody JSONObject json){
         //获取前端传入的数据
@@ -66,6 +70,7 @@ public class UserController {
 
     }
 
+    //退出登录
     @RequestMapping("/logout")
     public  CommonResult toLayout(@RequestBody JSONObject json){
         //获取前端传入的数据
@@ -82,6 +87,16 @@ public class UserController {
         }
 
     }
+
+    //用户管理查询所有用户
+    @RequestMapping("/userList")
+    public CommonResult userList(){
+        //查询用户列表
+        List<Users> usersList = usersService.selectAll();
+        //返回
+        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),usersList);
+    }
+
 
 
 }
