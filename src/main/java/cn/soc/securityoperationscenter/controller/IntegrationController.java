@@ -52,10 +52,12 @@ public class IntegrationController {
         riskCheckMission.setUpdateTime(new Date());
         //新增操作
         int i = riskCheckMissionService.insert(riskCheckMission);
+        //重新请求
+        List<RiskCheckMission> riskCheckMissionList = riskCheckMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskCheckMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskCheckMissionList);
         }
     }
 
@@ -65,10 +67,12 @@ public class IntegrationController {
         //通过id删除
         Integer id = Integer.parseInt(json.getString("id"));
         int i = riskCheckMissionService.deleteByPrimaryKey(id);
+        //重新请求
+        List<RiskCheckMission> riskCheckMissionList = riskCheckMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskCheckMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskCheckMissionList);
         }
     }
 
@@ -87,10 +91,12 @@ public class IntegrationController {
         //通过id删除
         Integer id = Integer.parseInt(json.getString("id"));
         int i = riskTrackMissionService.deleteByPrimaryKey(id);
+        //重新请求
+        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskTrackMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskTrackMissionList);
         }
     }
 
@@ -109,10 +115,12 @@ public class IntegrationController {
         riskTrackMission.setUpdateTime(new Date());
         //新增操作
         int i = riskTrackMissionService.insert(riskTrackMission);
+        //重新请求
+        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskTrackMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskTrackMissionList);
         }
     }
 

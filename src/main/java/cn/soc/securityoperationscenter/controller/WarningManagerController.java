@@ -41,8 +41,16 @@ public class WarningManagerController {
         WarningManager warningManager = new WarningManager();
         warningManager.setMissionName(missionName);
         warningManager.setMissionStatus(missionstatus);
+        //进行创建操作
+        int i = warningManagerService.insert(warningManager);
+        //重新求值
+        List<WarningManager> warningManagerList = warningManagerService.selectAll();
         //返回
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), warningManagerList);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), warningManagerList);
+        }
     }
 
 

@@ -53,10 +53,12 @@ public class SecurityController {
 
         //insert操作
         int i = appRiskCheckMissionService.insert(appRiskCheck);
+        //重新请求
+        List<AppRiskCheckMission> appRiskCheckMissionList = appRiskCheckMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskCheckMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskCheckMissionList);
         }
 
     }
@@ -68,8 +70,13 @@ public class SecurityController {
         Integer id = Integer.parseInt(json.getString("id"));
         //删除操作
         int i = appRiskCheckMissionService.deleteByPrimaryKey(id);
-
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
+        //重新请求数据
+        List<AppRiskCheckMission> appRiskCheckMissionList = appRiskCheckMissionService.selectAll();
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskCheckMissionList);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskCheckMissionList);
+        }
     }
 
 
@@ -100,10 +107,12 @@ public class SecurityController {
 
         //insert操作
         int i = appRiskTrackMissionService.insert(appRiskTrack);
+        //请求数据
+        List<AppRiskTrackMission> appRiskTrackMissionList = appRiskTrackMissionService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskTrackMissionList);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskTrackMissionList);
         }
     }
 

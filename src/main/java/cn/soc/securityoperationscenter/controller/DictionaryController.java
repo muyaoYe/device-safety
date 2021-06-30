@@ -59,11 +59,13 @@ public class DictionaryController {
 
         //新增操作
         int i = dataDictionaryService.insert(dataDictionary);
+        //重新请求数据
+        List<DataDictionary> dataDictionaryList = dataDictionaryService.selectAll();
         //如果新增成功
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dataDictionaryList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dataDictionaryList);
         }
     }
 
@@ -101,10 +103,12 @@ public class DictionaryController {
         dataDictionary.setNote(note);
         //进行更新
         int i = dataDictionaryService.updateByPrimaryKey(dataDictionary);
+        //重新请求数据
+        List<DataDictionary> dataDictionaryList = dataDictionaryService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dataDictionaryList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dataDictionaryList);
         }
     }
 
@@ -115,11 +119,13 @@ public class DictionaryController {
         Integer id = Integer.parseInt(json.getString("id"));
         //通过id删除
         int i = dataDictionaryService.deleteByPrimaryKey(id);
+        //重新获取数据
+        List<DataDictionary> dataDictionaryList = dataDictionaryService.selectAll();
         //如果删除成功
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dataDictionaryList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dataDictionaryList);
         }
     }
 
@@ -146,10 +152,12 @@ public class DictionaryController {
         dictionaryType.setNote(note);
         //新增
         int i = dictionaryTypeService.insert(dictionaryType);
+        //重新请求
+        List<DictionaryType> dictionaryTypeList = dictionaryTypeService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dictionaryTypeList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dictionaryTypeList);
         }
     }
 
@@ -170,11 +178,13 @@ public class DictionaryController {
         dictionaryType.setNote(note);
         //通过id更新操作
         int i = dictionaryTypeService.updateByPrimaryKey(dictionaryType);
+        //重新请求数据
+        List<DictionaryType> dictionaryTypeList = dictionaryTypeService.selectAll();
 
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dictionaryTypeList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dictionaryTypeList);
         }
     }
 
@@ -185,10 +195,12 @@ public class DictionaryController {
         Integer id = Integer.parseInt(json.getString("id"));
         //通过id删除
         int i = dictionaryTypeService.deleteByPrimaryKey(id);
+        //删除之后再请求一次数据
+        List<DictionaryType> dictionaryTypeList = dictionaryTypeService.selectAll();
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),dictionaryTypeList);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),dictionaryTypeList);
         }
     }
 
