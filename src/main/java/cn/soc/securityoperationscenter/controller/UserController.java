@@ -121,7 +121,7 @@ public class UserController {
         user.setRegistertime(usersService.selectByPrimaryKey(id).getRegistertime());
         int i = usersService.updateByPrimaryKey(user);
         if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectByPrimaryKey(id));
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectAll());
         } else {
             return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
         }
