@@ -16,4 +16,6 @@ public interface IUsersService {
     List<Users> selectAll();
 
     int updateByPrimaryKey(Users record);
+
+    Users selectByNamePass(String username,String password);
 }

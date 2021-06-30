@@ -17,4 +17,7 @@ public interface UsersMapper {
     List<Users> selectAll();
 
     int updateByPrimaryKey(Users record);
+
+    Users selectByNamePass(String username,String password);
+
 }

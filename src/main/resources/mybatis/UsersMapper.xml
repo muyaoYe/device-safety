@@ -48,4 +48,11 @@
     from users
   </select>
 
+  <select id="selectByNamePass" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from users
+    where username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

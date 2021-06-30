@@ -44,4 +44,12 @@ public class IUsersServiceImpl implements IUsersService {
         int i = usersMapper.updateByPrimaryKey(record);
         return i;
     }
+
+    @Override
+    public Users selectByNamePass(String username, String password) {
+        Users user = usersMapper.selectByNamePass(username,password);
+        return user;
+    }
+
+
 }
