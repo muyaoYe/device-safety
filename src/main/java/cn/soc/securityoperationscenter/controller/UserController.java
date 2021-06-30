@@ -133,7 +133,7 @@ public class UserController {
         int id = Integer.parseInt(json.getString("id"));
         int i = usersService.deleteByPrimaryKey(id);
         if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectByPrimaryKey(id));
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectAll());
         } else {
             return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
         }
