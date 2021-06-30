@@ -30,7 +30,7 @@ public class AssetController {
         List<Assets> assetsList = assetService.selectAll();
 
         //找到的返回给前端
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),assetService);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),assetsList);
 
     }
 
