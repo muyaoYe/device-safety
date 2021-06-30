@@ -4,9 +4,11 @@ import cn.soc.securityoperationscenter.dao.UsersMapper;
 import cn.soc.securityoperationscenter.entity.Users;
 import cn.soc.securityoperationscenter.service.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class IUsersServiceImpl implements IUsersService {
 
     @Autowired
