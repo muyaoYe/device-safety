@@ -97,6 +97,46 @@ public class UserController {
         return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersList);
     }
 
+    //修改用户信息
+    @RequestMapping("/update")
+    public CommonResult update(@RequestBody JSONObject json){
+        int id = Integer.parseInt(json.getString("id"));
+        String password = json.getString("password");
+        String telephone = json.getString("telephone");
+        String email = json.getString("email");
+        int jurisdiction = Integer.parseInt(json.getString("jurisdiction"));
+        Users user = new Users();
+        user.setId(id);
+        //暂不开放用户名的修改
+        user.setUsername(usersService.selectByPrimaryKey(id).getUsername());
+        user.setPassword(password);
+        user.setTelephone(telephone);
+        user.setEmail(email);
+        user.setJurisdiction(jurisdiction);
+        //暂不开放状态的修改
+        user.setStatus(usersService.selectByPrimaryKey(id).getStatus());
+        //暂不开放最后登录时间的修改
+        user.setLastlogintime(usersService.selectByPrimaryKey(id).getLastlogintime());
+        //暂不开放注册时间的修改
+        user.setRegistertime(usersService.selectByPrimaryKey(id).getRegistertime());
+        int i = usersService.updateByPrimaryKey(user);
+        if (i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectByPrimaryKey(id));
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+        }
+    }
 
+    //删除用户
+    @RequestMapping("/delete")
+    public CommonResult delete(@RequestBody JSONObject json){
+        int id = Integer.parseInt(json.getString("id"));
+        int i = usersService.deleteByPrimaryKey(id);
+        if (i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectByPrimaryKey(id));
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+        }
+    }
 
 }
