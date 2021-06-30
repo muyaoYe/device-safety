@@ -23,7 +23,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{jurisdiction,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{lastlogintime,jdbcType=TIMESTAMP}, #{registertime,jdbcType=TIMESTAMP}
+      #{status,jdbcType=INTEGER}, default, default
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Users">

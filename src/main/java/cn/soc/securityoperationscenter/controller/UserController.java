@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
 import cn.soc.securityoperationscenter.entity.Users;
+import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.IUsersService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,30 +34,41 @@ public class UserController {
         //查询是否有数据
         Users user = usersService.selectByNamePass(username,password);
         if(user!=null){
-
-            //把用户信息传入session
-
-            return new CommonResult("200","success",user);
+            //把用户的登录状态status改为已登录1
+            user.setStatus(1);
+            //并在数据库中进行更新
+            usersService.updateByPrimaryKey(user);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
         }
-        return new CommonResult("100","error",null);
+        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
     }
 
-    @RequestMapping("/regist")
-    public CommonResult toRegist(@RequestBody JSONObject json ){
+    @RequestMapping("/register")
+    public CommonResult toRegist(@RequestBody JSONObject json){
+        //获取前端传入的数据
+        //用户名 密码 电话 邮箱
         String username = json.getString("username");
         String password = json.getString("password");
+        String telephone = json.getString("telephone");
+        String email = json.getString("email");
         Users user = new Users();
         user.setUsername(username);
         user.setPassword(password);
+        user.setTelephone(telephone);
+        user.setEmail(email);
+        //由于权限和状态不能为空 故为默认值0
+        user.setStatus(0);
+        user.setJurisdiction(0);
         int i = usersService.insert(user);
         if (i!=0){
-            return new CommonResult("200","success",user);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
         }
-        return new CommonResult("100","error",null);
+        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
     }
 
-    @RequestMapping("layout")
-    public  CommonResult toLayout(){
+    @RequestMapping("/logout")
+    public  CommonResult toLayout(@RequestBody JSONObject json){
+
         return new CommonResult("200","success",null);
     }
 
