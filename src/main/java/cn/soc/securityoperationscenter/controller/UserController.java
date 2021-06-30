@@ -94,7 +94,7 @@ public class UserController {
         //查询用户列表
         List<Users> usersList = usersService.selectAll();
         //返回
-        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),usersList);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersList);
     }
 
 
