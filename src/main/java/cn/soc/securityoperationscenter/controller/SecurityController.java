@@ -40,8 +40,8 @@ public class SecurityController {
     public CommonResult insertCheck(@RequestBody JSONObject json) {
         //得到参数
         String missionName = json.getString("missionName");
-        Date cretaTime = json.getDate("createTime");
-        Date executeTime = json.getDate("executeTime");
+        Date cretaTime = new Date();
+        Date executeTime = new Date();
         //创建对象接收参数
         AppRiskCheckMission appRiskCheck = new AppRiskCheckMission();
         appRiskCheck.setMissionName(missionName);
@@ -93,15 +93,15 @@ public class SecurityController {
     public CommonResult insertTrack(@RequestBody JSONObject json) {
         //得到参数
         String missionName = json.getString("missionName");
-        Date cretaTime = json.getDate("createTime");
-        Date updateTime = json.getDate("updateTime");
+        Date createTime = new Date();
+        Date updateTime = new Date();
 
         //创建对象接收参数
         AppRiskTrackMission appRiskTrack = new AppRiskTrackMission();
         appRiskTrack.setMissionName(missionName);
         //任务名称/扫描模板/备注
         //创建时间
-        appRiskTrack.setCreateTime(cretaTime);
+        appRiskTrack.setCreateTime(createTime);
         //执行时间
         appRiskTrack.setUpdateTime(updateTime);
 
