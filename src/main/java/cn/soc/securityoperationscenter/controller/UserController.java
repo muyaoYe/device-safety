@@ -5,14 +5,13 @@ import cn.soc.securityoperationscenter.entity.Users;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.IUsersService;
 import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.bcel.internal.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 @RestController
 @RequestMapping("/userController")
@@ -22,6 +21,7 @@ public class UserController {
     @Autowired
     IUsersService usersService;
 
+
     @RequestMapping("/test")
     public String test() {
         return "this is a test";
@@ -29,26 +29,48 @@ public class UserController {
 
     //登录
     @RequestMapping("/login")
-    public CommonResult toLogin(@RequestBody JSONObject json){
+    public CommonResult toLogin(@RequestBody JSONObject json) {
         System.out.println("进入了用户登录方法");
+//        System.out.println("11111111111111111" + json);
         //接收url传值
         String username = json.getString("username");
+//        System.out.println(username);
         String password = json.getString("password");
+//        System.out.println(password);
         //查询是否有数据
-        Users user = usersService.selectByNamePass(username,password);
-        if(user!=null){
+        Users user = usersService.selectByNamePass(username, password);
+        if (user != null) {
             //把用户的登录状态status改为已登录1
             user.setStatus(1);
             //并在数据库中进行更新
             usersService.updateByPrimaryKey(user);
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), user);
         }
-        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+    }
+
+    //登陆后查询到当前用户
+    @RequestMapping("/userInfo")
+    public CommonResult userInfo(@RequestBody JSONObject json) {
+        Integer id = json.getInteger("id");
+        Users users = usersService.selectByPrimaryKey(id);
+        Map<String, Object> map = new HashMap<>();
+        String[] strings = new String[1];
+//        if (users.getJurisdiction() == 1) {
+//            strings[0] = "admin";
+//        } else {
+//            strings[0] = "";
+//        }
+        strings[0] = "admin";
+        map.put("permissions", strings);
+        map.put("username", users.getUsername());
+        map.put("user", users);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), map);
     }
 
     //注册
     @RequestMapping("/register")
-    public CommonResult toRegist(@RequestBody JSONObject json){
+    public CommonResult toRegist(@RequestBody JSONObject json) {
         //获取前端传入的数据
         //用户名 密码 电话 邮箱
         String username = json.getString("username");
@@ -62,44 +84,46 @@ public class UserController {
         user.setEmail(email);
 
         int i = usersService.insert(user);
-        if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),user);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), user);
         } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
         }
 
     }
 
     //退出登录
     @RequestMapping("/logout")
-    public  CommonResult toLayout(@RequestBody JSONObject json){
-        //获取前端传入的数据
-        //id
-        int id = Integer.parseInt(json.getString("id"));
-        Users user = usersService.selectByPrimaryKey(id);
-        //将用户的登录状态设为未登录
-        user.setStatus(0);
-        int i = usersService.updateByPrimaryKey(user);
-        if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),null);
-        } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
-        }
+    public CommonResult toLayout(@RequestHeader("id") int id) {
+//        //获取前端传入的数据
+//        //id
+//        int id = Integer.parseInt(json.getString("id"));
+//        Users user = usersService.selectByPrimaryKey(id);
+//        //将用户的登录状态设为未登录
+//        user.setStatus(0);
+//        int i = usersService.updateByPrimaryKey(user);
+//        if (i != 0) {
+//            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+//        } else {
+//            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+//        }
 
+        System.out.println(id);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
     }
 
     //用户管理查询所有用户
     @RequestMapping("/userList")
-    public CommonResult userList(){
+    public CommonResult userList() {
         //查询用户列表
         List<Users> usersList = usersService.selectAll();
         //返回
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersList);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), usersList);
     }
 
     //修改用户信息
     @RequestMapping("/update")
-    public CommonResult update(@RequestBody JSONObject json){
+    public CommonResult update(@RequestBody JSONObject json) {
         int id = Integer.parseInt(json.getString("id"));
         String password = json.getString("password");
         String telephone = json.getString("telephone");
@@ -120,22 +144,22 @@ public class UserController {
         //暂不开放注册时间的修改
         user.setRegistertime(usersService.selectByPrimaryKey(id).getRegistertime());
         int i = usersService.updateByPrimaryKey(user);
-        if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectAll());
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), usersService.selectAll());
         } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
         }
     }
 
     //删除用户
     @RequestMapping("/delete")
-    public CommonResult delete(@RequestBody JSONObject json){
+    public CommonResult delete(@RequestBody JSONObject json) {
         int id = Integer.parseInt(json.getString("id"));
         int i = usersService.deleteByPrimaryKey(id);
-        if (i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),usersService.selectAll());
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), usersService.selectAll());
         } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
         }
     }
 
