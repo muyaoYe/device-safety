@@ -49,4 +49,14 @@ public class IUsersServiceImpl implements IUsersService {
         Users user = usersMapper.selectByNamePass(username,password);
         return user;
     }
+
+    @Override
+    public int isOnlyTelephoneEmail(String telephone, String email) {
+        Users users = usersMapper.validateTelephoneEmail(telephone, email);
+        if (users==null){
+            return 0;
+        }else {
+            return 1;
+        }
+    }
 }

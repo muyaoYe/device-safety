@@ -34,19 +34,18 @@ public class UserController {
 //        System.out.println("11111111111111111" + json);
         //接收url传值
         String username = json.getString("username");
-//        System.out.println(username);
         String password = json.getString("password");
-//        System.out.println(password);
         //查询是否有数据
         Users user = usersService.selectByNamePass(username, password);
         if (user != null) {
             //把用户的登录状态status改为已登录1
             user.setStatus(1);
+            user.setLastlogintime(null);
             //并在数据库中进行更新
             usersService.updateByPrimaryKey(user);
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), user);
         }
-        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        return new CommonResult(CodeEnum.ERROR.getValue(), "账号密码错误", null);
     }
 
     //登陆后查询到当前用户
@@ -75,8 +74,12 @@ public class UserController {
         //用户名 密码 电话 邮箱
         String username = json.getString("username");
         String password = json.getString("password");
-        String telephone = json.getString("telephone");
+        String telephone = json.getString("phone");
         String email = json.getString("email");
+        //查询手机以及邮箱是否已经被使用
+        if (usersService.isOnlyTelephoneEmail(telephone,email)==1){
+            return new CommonResult(CodeEnum.ERROR.getValue(),"手机或者邮箱已经被使用",null);
+        }
         Users user = new Users();
         user.setUsername(username);
         user.setPassword(password);
@@ -95,21 +98,18 @@ public class UserController {
     //退出登录
     @RequestMapping("/logout")
     public CommonResult toLayout(@RequestHeader("id") int id) {
-//        //获取前端传入的数据
-//        //id
+        //获取前端传入的数据
+        //id
 //        int id = Integer.parseInt(json.getString("id"));
-//        Users user = usersService.selectByPrimaryKey(id);
-//        //将用户的登录状态设为未登录
-//        user.setStatus(0);
-//        int i = usersService.updateByPrimaryKey(user);
-//        if (i != 0) {
-//            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
-//        } else {
-//            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
-//        }
-
-        System.out.println(id);
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
+        Users user = usersService.selectByPrimaryKey(id);
+        //将用户的登录状态设为未登录
+        user.setStatus(0);
+        int i = usersService.updateByPrimaryKey(user);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
     }
 
     //用户管理查询所有用户

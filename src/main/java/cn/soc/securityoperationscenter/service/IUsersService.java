@@ -16,6 +16,15 @@ public interface IUsersService {
 
     int updateByPrimaryKey(Users record);
 
-    Users selectByNamePass(String username,String password);
+    Users selectByNamePass(String username, String password);
 
+    /**
+     * 电话已经邮箱是否已经被使用
+     * 已经被使用返回-1
+     * 未被使用返回-0
+     * @param telephone
+     * @param email
+     * @return
+     */
+    int isOnlyTelephoneEmail(String telephone, String email);
 }
