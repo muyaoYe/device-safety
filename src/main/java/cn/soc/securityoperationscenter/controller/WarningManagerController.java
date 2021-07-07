@@ -7,10 +7,7 @@ import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.IWarningManagerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class WarningManagerController {
     }
 
     @RequestMapping("/createWarning")
-    public CommonResult insert(@RequestBody JSONObject json) {
+    public CommonResult insert(@RequestBody JSONObject json, @RequestHeader("id") int id) {
         //得到传值
         String missionName = json.getString("missionName");
         String missionstatus = json.getString("missionStatus");
@@ -41,6 +38,7 @@ public class WarningManagerController {
         WarningManager warningManager = new WarningManager();
         warningManager.setMissionName(missionName);
         warningManager.setMissionStatus(missionstatus);
+        warningManager.setCreatePerson(id);
         //进行创建操作
         int i = warningManagerService.insert(warningManager);
         //重新求值

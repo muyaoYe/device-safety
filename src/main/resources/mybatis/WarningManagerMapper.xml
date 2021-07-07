@@ -16,7 +16,7 @@
     insert into safety_warning_manager (id, mission_name, mission_status,
                                         create_person, create_time)
     values (#{id,jdbcType=INTEGER}, #{missionName,jdbcType=VARCHAR}, #{missionStatus,jdbcType=VARCHAR},
-            #{createPerson,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+            #{createPerson,jdbcType=INTEGER}, default)
   </insert>
   <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.WarningManager">
     update safety_warning_manager
