@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.soc.securityoperationscenter.dao.UsersMapper">
-  <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.Users">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="jurisdiction" jdbcType="INTEGER" property="jurisdiction" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime" />
-    <result column="registerTime" jdbcType="TIMESTAMP" property="registertime" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.Users">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="jurisdiction" jdbcType="INTEGER" property="jurisdiction"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastlogintime"/>
+        <result column="registerTime" jdbcType="TIMESTAMP" property="registertime"/>
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from users
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.Users">
+    <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.Users">
     insert into users (id, username, password, 
       telephone, email, jurisdiction, 
       status, lastLoginTime, registerTime
@@ -26,35 +26,51 @@
             default, default, default
       )
   </insert>
-  <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Users">
-    update users
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      jurisdiction = #{jurisdiction,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
-      registerTime = #{registertime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Users">
+        update users
+        set username = #{username,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        telephone = #{telephone,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        jurisdiction = #{jurisdiction,jdbcType=INTEGER},
+        status = #{status,jdbcType=INTEGER},
+        <if test="lastlogintime !=null ">
+            <![CDATA[
+                lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+            ]]>
+        </if>
+        registerTime = #{registertime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, username, password, telephone, email, jurisdiction, status, lastLoginTime, 
     registerTime
     from users
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+
+    <select id="selectAll" resultMap="BaseResultMap">
     select id, username, password, telephone, email, jurisdiction, status, lastLoginTime, 
     registerTime
     from users
   </select>
 
-  <select id="selectByNamePass" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByNamePass" parameterType="java.lang.String" resultMap="BaseResultMap">
     select id, username, password, telephone, email, jurisdiction, status, lastLoginTime,
     registerTime
     from users
-    where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    where (telephone = #{username,jdbcType=VARCHAR} or
+     email = #{username,jdbcType=VARCHAR} ) and
+     password = #{password,jdbcType=VARCHAR}
+  </select>
+
+    <select id="validateTelephoneEmail" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, username, password, telephone, email, jurisdiction, status, lastLoginTime,
+    registerTime
+    from users
+    where telephone = #{telephone,jdbcType=VARCHAR} or
+     email = #{telephone,jdbcType=VARCHAR}
   </select>
 
 </mapper>

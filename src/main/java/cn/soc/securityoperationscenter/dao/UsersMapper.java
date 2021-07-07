@@ -20,4 +20,12 @@ public interface UsersMapper {
 
     Users selectByNamePass(@Param("username") String username,@Param("password")  String password);
 
+    /**
+     * 验证手机号码以及邮箱是否被使用过
+     * @param telephone
+     * @param email
+     * @return
+     */
+    Users validateTelephoneEmail(@Param("telephone") String telephone,@Param("email")  String email);
+
 }
