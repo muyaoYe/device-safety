@@ -108,7 +108,7 @@ public class UserController {
         if (i != 0) {
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
         } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), "账号密码错误", null);
         }
     }
 
