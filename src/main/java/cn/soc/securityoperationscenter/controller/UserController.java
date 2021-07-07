@@ -45,7 +45,7 @@ public class UserController {
             usersService.updateByPrimaryKey(user);
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), user);
         }
-        return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        return new CommonResult(CodeEnum.ERROR.getValue(), "账号密码错误", null);
     }
 
     //登陆后查询到当前用户
@@ -108,7 +108,7 @@ public class UserController {
         if (i != 0) {
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
         } else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), "账号密码错误", null);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
         }
     }
 
