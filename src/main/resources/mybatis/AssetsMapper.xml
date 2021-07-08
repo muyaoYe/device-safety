@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.soc.securityoperationscenter.entity.Assets">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="intranet_IP" jdbcType="VARCHAR" property="intranetIp" />
-    <result column="intranet_ port" jdbcType="VARCHAR" property="intranetPort" />
+    <result column="intranet_port" jdbcType="VARCHAR" property="intranetPort" />
     <result column="port_service" jdbcType="VARCHAR" property="portService" />
     <result column="extranet_IP" jdbcType="VARCHAR" property="extranetIp" />
     <result column="extranet_port" jdbcType="VARCHAR" property="extranetPort" />
@@ -27,7 +27,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.Assets">
-    insert into assets (id, intranet_IP, "intranet_ port", 
+    insert into assets (id, intranet_IP, intranet_port,
       port_service, extranet_IP, extranet_port, 
       domain_name, asset_location, business_type, 
       server_type, os_type, app_type, 
@@ -45,7 +45,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Assets">
     update assets
     set intranet_IP = #{intranetIp,jdbcType=VARCHAR},
-      "intranet_ port" = #{intranetPort,jdbcType=VARCHAR},
+      intranet_port = #{intranetPort,jdbcType=VARCHAR},
       port_service = #{portService,jdbcType=VARCHAR},
       extranet_IP = #{extranetIp,jdbcType=VARCHAR},
       extranet_port = #{extranetPort,jdbcType=VARCHAR},
@@ -65,14 +65,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, intranet_IP, "intranet_ port", port_service, extranet_IP, extranet_port, 
+    select id, intranet_IP, intranets_port, port_service, extranet_IP, extranet_port,
     domain_name, asset_location, business_type, server_type, os_type, app_type, version, 
     parent_project, charge_person, charge_department, email, telphone, note
     from assets
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, intranet_IP, "intranet_ port", port_service, extranet_IP, extranet_port, 
+    select id, intranet_IP, intranet_port, port_service, extranet_IP, extranet_port,
     domain_name, asset_location, business_type, server_type, os_type, app_type, version, 
     parent_project, charge_person, charge_department, email, telphone, note
     from assets
