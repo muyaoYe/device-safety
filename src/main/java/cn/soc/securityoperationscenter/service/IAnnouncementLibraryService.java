@@ -2,7 +2,9 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.AnnouncementLibrary;
+import com.github.pagehelper.Page;
 
 
 import java.util.List;
@@ -16,7 +18,7 @@ public interface IAnnouncementLibraryService {
 
     AnnouncementLibrary selectByPrimaryKey(Integer id);
 
-    List<AnnouncementLibrary> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(AnnouncementLibrary record);
 }

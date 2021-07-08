@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.WarningManager;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface IWarningManagerService {
 
     WarningManager selectByPrimaryKey(Integer id);
 
-    List<WarningManager> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(WarningManager record);
 }

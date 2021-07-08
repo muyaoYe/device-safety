@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.OperationLibrary;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface IOperationLibraryService {
 
     OperationLibrary selectByPrimaryKey(Integer id);
 
-    List<OperationLibrary> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(OperationLibrary record);
 }

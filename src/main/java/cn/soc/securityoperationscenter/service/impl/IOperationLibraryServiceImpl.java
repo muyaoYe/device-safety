@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.OperationLibraryMapper;
 import cn.soc.securityoperationscenter.entity.OperationLibrary;
 import cn.soc.securityoperationscenter.service.IOperationLibraryService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +37,11 @@ public class IOperationLibraryServiceImpl implements IOperationLibraryService {
     }
 
     @Override
-    public List<OperationLibrary> selectAll() {
+    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
         List<OperationLibrary> list = operationLibraryMapper.selectAll();
-        return list;
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
 
     @Override

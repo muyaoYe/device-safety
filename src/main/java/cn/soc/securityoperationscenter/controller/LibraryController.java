@@ -1,10 +1,13 @@
 package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.*;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.*;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +36,10 @@ public class LibraryController {
     private IUsersService usersService;
 
     @RequestMapping("/selectWarning")
-    public CommonResult selectAllWarning(){
-        List<WarningLibrary> warningLibraries =  warningLibraryService.selectAll();
+    public CommonResult selectAllWarning(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
+        PageResult pageResult =  warningLibraryService.selectAll(pageNum,5);
+        List<WarningLibrary> warningLibraries = (List<WarningLibrary>) pageResult.getList();
         //处理用户id将其转换为用户名
         List<WarningLibraryShow> list = new ArrayList<>();
         for (WarningLibrary warning : warningLibraries) {
@@ -47,12 +52,15 @@ public class LibraryController {
             warningLibraryShow.setCreateTime(warning.getCreateTime());
             list.add(warningLibraryShow);
         }
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list);
+        pageResult.setList(list);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
     }
 
     @RequestMapping("/selectAnnouncement")
-    public CommonResult selectAllAnnouncement(){
-        List<AnnouncementLibrary> announcementLibraries =  announcementLibraryService.selectAll();
+    public CommonResult selectAllAnnouncement(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
+        PageResult pageResult =  announcementLibraryService.selectAll(pageNum,5);
+        List<AnnouncementLibrary> announcementLibraries = (List<AnnouncementLibrary>) pageResult.getList();
         //处理用户id将其转换为用户名
         List<AnnouncementLibraryShow> list = new ArrayList<>();
         for (AnnouncementLibrary announcement : announcementLibraries) {
@@ -63,12 +71,15 @@ public class LibraryController {
             announcementLibraryShow.setCreateTime(announcement.getCreateTime());
             list.add(announcementLibraryShow);
         }
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list);
+        pageResult.setList(list);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
     }
 
     @RequestMapping("/selectOperation")
-    public CommonResult selectAllOperation(){
-        List<OperationLibrary> operationLibraries =  operationLibraryService.selectAll();
+    public CommonResult selectAllOperation(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
+        PageResult pageResult =  operationLibraryService.selectAll(pageNum,5);
+        List<OperationLibrary> operationLibraries = (List<OperationLibrary>) pageResult.getList();
         //处理用户id将其转换为用户名
         List<OperationLibraryShow> list = new ArrayList<>();
         for (OperationLibrary operation : operationLibraries) {
@@ -80,12 +91,15 @@ public class LibraryController {
             operationLibraryShow.setCreateTime(operation.getCreateTime());
             list.add(operationLibraryShow);
         }
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list);
+        pageResult.setList(list);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
     }
 
     @RequestMapping("/selectResponse")
-    public CommonResult selectAllResponse(){
-        List<ResponseLibrary> responseLibraries =  responseLibraryService.selectAll();
+    public CommonResult selectAllResponse(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
+        PageResult pageResult =  responseLibraryService.selectAll(pageNum,5);
+        List<ResponseLibrary> responseLibraries = (List<ResponseLibrary>) pageResult.getList();
         //处理用户id将其转换为用户名
         List<ResponseLibraryShow> list = new ArrayList<>();
         for (ResponseLibrary response : responseLibraries) {
@@ -97,6 +111,7 @@ public class LibraryController {
             responseLibraryShow.setCreateTime(response.getCreateTime());
             list.add(responseLibraryShow);
         }
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list);
+        pageResult.setList(list);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
     }
 }

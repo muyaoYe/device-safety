@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.ResponseLibraryMapper;
 import cn.soc.securityoperationscenter.entity.ResponseLibrary;
 import cn.soc.securityoperationscenter.service.IResponseLibraryService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +36,11 @@ public class IResponseLibraryServiceImpl implements IResponseLibraryService {
     }
 
     @Override
-    public List<ResponseLibrary> selectAll() {
-        List<ResponseLibrary> list = responseLibraryMapper.selectAll();
-        return list;
+    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        responseLibraryMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
 
     @Override

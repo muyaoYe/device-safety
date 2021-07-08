@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.AnnouncementLibraryMapper;
 import cn.soc.securityoperationscenter.entity.AnnouncementLibrary;
 import cn.soc.securityoperationscenter.service.IAnnouncementLibraryService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +37,11 @@ public class IAnnouncementLibraryServiceImpl implements IAnnouncementLibraryServ
     }
 
     @Override
-    public List<AnnouncementLibrary> selectAll() {
-        List<AnnouncementLibrary> list = announcementLibraryMapper.selectAll();
-        return list;
+    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        announcementLibraryMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
 
     @Override

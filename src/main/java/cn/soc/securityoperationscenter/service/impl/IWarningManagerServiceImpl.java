@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.WarningManagerMapper;
 import cn.soc.securityoperationscenter.entity.WarningManager;
 import cn.soc.securityoperationscenter.service.IWarningManagerService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +36,11 @@ public class IWarningManagerServiceImpl implements IWarningManagerService {
     }
 
     @Override
-    public List<WarningManager> selectAll() {
-        List<WarningManager> list = warningManagerMapper.selectAll();
-        return list;
+    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        warningManagerMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
 
     @Override

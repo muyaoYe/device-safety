@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.controller;
 
 
 import cn.soc.securityoperationscenter.common.CommonResult;
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.WarningManager;
 import cn.soc.securityoperationscenter.entity.WarningManagerShow;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
@@ -28,9 +29,11 @@ public class WarningManagerController {
     private IUsersService usersService;
 
     @RequestMapping("/selectAll")
-    public CommonResult selectAll() {
+    public CommonResult selectAll(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
         //查找所有的安全通告预警
-        List<WarningManager> warningManagerList = warningManagerService.selectAll();
+        PageResult pageResult = warningManagerService.selectAll(pageNum,5);
+        List<WarningManager> warningManagerList = (List<WarningManager>) pageResult.getList();
         List<WarningManagerShow> list = new ArrayList<>();
         for (WarningManager warning : warningManagerList) {
             WarningManagerShow warningManagerShow = new WarningManagerShow();
@@ -41,7 +44,8 @@ public class WarningManagerController {
             warningManagerShow.setCreateTime(warning.getCreateTime());
             list.add(warningManagerShow);
         }
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list );
+        pageResult.setList(list);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult );
     }
 
     @RequestMapping("/createWarning")
@@ -57,7 +61,8 @@ public class WarningManagerController {
         //进行创建操作
         int i = warningManagerService.insert(warningManager);
         //重新求值
-        List<WarningManager> warningManagerList = warningManagerService.selectAll();
+        PageResult pageResult = warningManagerService.selectAll(1,5);
+        List<WarningManager> warningManagerList = (List<WarningManager>) pageResult.getList();
         List<WarningManagerShow> list = new ArrayList<>();
         for (WarningManager warning : warningManagerList) {
             WarningManagerShow warningManagerShow = new WarningManagerShow();
@@ -68,11 +73,12 @@ public class WarningManagerController {
             warningManagerShow.setCreateTime(warning.getCreateTime());
             list.add(warningManagerShow);
         }
+        pageResult.setList(list);
         //返回
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), list);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), list);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
@@ -82,7 +88,8 @@ public class WarningManagerController {
         int id = Integer.parseInt(json.getString("id"));
         int i = warningManagerService.deleteByPrimaryKey(id);
         //重新求值
-        List<WarningManager> warningManagerList = warningManagerService.selectAll();
+        PageResult pageResult = warningManagerService.selectAll(1,5);
+        List<WarningManager> warningManagerList = (List<WarningManager>) pageResult.getList();
         List<WarningManagerShow> list = new ArrayList<>();
         for (WarningManager warning : warningManagerList) {
             WarningManagerShow warningManagerShow = new WarningManagerShow();
@@ -93,11 +100,12 @@ public class WarningManagerController {
             warningManagerShow.setCreateTime(warning.getCreateTime());
             list.add(warningManagerShow);
         }
+        pageResult.setList(list);
         //返回
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), list);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), list);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
