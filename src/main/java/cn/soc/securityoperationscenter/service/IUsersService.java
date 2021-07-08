@@ -1,6 +1,8 @@
 package cn.soc.securityoperationscenter.service;
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.Users;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public interface IUsersService {
 
     Users selectByPrimaryKey(Integer id);
 
-    List<Users> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(Users record);
 

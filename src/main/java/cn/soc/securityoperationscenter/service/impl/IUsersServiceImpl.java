@@ -1,8 +1,11 @@
 package cn.soc.securityoperationscenter.service.impl;
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.UsersMapper;
 import cn.soc.securityoperationscenter.entity.Users;
 import cn.soc.securityoperationscenter.service.IUsersService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +36,11 @@ public class IUsersServiceImpl implements IUsersService {
     }
 
     @Override
-    public List<Users> selectAll() {
-        List<Users> usersList = usersMapper.selectAll();
-        return usersList;
+    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        usersMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
 
     @Override
