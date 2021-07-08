@@ -86,4 +86,87 @@ public class AssetController {
         return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
     }
 
+//    删除资产
+    @RequestMapping("/deleteAsset")
+    public CommonResult deleteAsset(@RequestBody JSONObject json){
+        //得到id
+        Integer id = json.getInteger("id");
+        //通过id删除
+        int i = assetService.deleteByPrimaryKey(id);
+        //删除完之后在返回一次数据
+        List<Assets> assetsList = assetService.selectAll();
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),assetsList);
+        }else{
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),assetsList);
+        }
+    }
+
+    //更新资产
+    @RequestMapping("/updateAsset")
+    public CommonResult updateAsset(@RequestBody JSONObject json){
+        //获取输入
+        Integer id = json.getInteger("id");
+        String intranetIp = json.getString("intranetIp");
+        String intranetPort = json.getString("intranetPort");
+        String portService = json.getString("portService");
+        String extranetIp = json.getString("extranetIp");
+        String extranetPort = json.getString("extranetPort");
+        String domainName = json.getString("domainName");
+        String assetLocation = json.getString("assetLocation");
+        String businessType = json.getString("businessType");
+        String serverType = json.getString("serverType");
+        String osType = json.getString("osType");
+        String appType = json.getString("appType");
+        String version = json.getString("version");
+        String parentProject = json.getString("parentProject");
+        String chargePerson = json.getString("chargePerson");
+        String chargeDepartment = json.getString("chargeDepartment");
+        String email = json.getString("email");
+        String telphone = json.getString("telphone");
+        String note = json.getString("note");
+
+        //创建asset实例
+        Assets asset = new Assets();
+        asset.setId(id);
+        asset.setIntranetIp(intranetIp);
+        asset.setIntranetPort(intranetPort);
+        asset.setPortService(portService);
+        asset.setExtranetIp(extranetIp);
+        asset.setExtranetIp(extranetIp);
+        asset.setExtranetPort(extranetPort);
+        asset.setDomainName(domainName);
+        asset.setAssetLocation(assetLocation);
+        asset.setBusinessType(businessType);
+        asset.setServerType(serverType);
+        asset.setOsType(osType);
+        asset.setAppType(appType);
+        asset.setVersion(version);
+        asset.setParentProject(parentProject);
+        asset.setChargePerson(chargePerson);
+        asset.setChargeDepartment(chargeDepartment);
+        asset.setEmail(email);
+        asset.setTelphone(telphone);
+        asset.setNote(note);
+
+        //进行update操作
+        int i = assetService.updateByPrimaryKey(asset);
+        //更新完之后在返回一次数据
+        List<Assets> assetsList = assetService.selectAll();
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),assetsList);
+        }else{
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),assetsList);
+        }
+    }
+
+
+    //查询资产
+    @RequestMapping("/findAsset")
+    public CommonResult findAsset(@RequestBody JSONObject json){
+
+        //查询资产暂时放着
+        return null;
+    }
+
 }
