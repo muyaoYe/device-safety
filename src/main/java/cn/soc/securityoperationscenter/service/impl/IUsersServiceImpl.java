@@ -56,12 +56,16 @@ public class IUsersServiceImpl implements IUsersService {
     }
 
     @Override
-    public int isOnlyTelephoneEmail(String telephone, String email) {
-        Users users = usersMapper.validateTelephoneEmail(telephone, email);
-        if (users==null){
-            return 0;
+    public int[] isOnlyTelephoneEmail(String telephone, String email) {
+        List<Users> users = usersMapper.validateTelephoneEmail(telephone, email);
+        if (users==null || users.size() ==0){
+            return null;
         }else {
-            return 1;
+            int[] result = new int[users.size()];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = users.get(i).getId();
+            }
+            return result;
         }
     }
 }

@@ -22,11 +22,11 @@ public interface IUsersService {
 
     /**
      * 电话已经邮箱是否已经被使用
-     * 已经被使用返回-1
+     * 已经被使用返回-使用人id
      * 未被使用返回-0
      * @param telephone
      * @param email
      * @return
      */
-    int isOnlyTelephoneEmail(String telephone, String email);
+    int[] isOnlyTelephoneEmail(String telephone, String email);
 }

@@ -17,15 +17,25 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="cn.soc.securityoperationscenter.entity.Users">
-    insert into users (id, username, password, 
-      telephone, email, jurisdiction, 
-      status, lastLoginTime, registerTime
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, default,
-            default, default, default
-      )
-  </insert>
+        insert into users (id, username, password,
+        telephone, email, jurisdiction,
+        status, lastLoginTime, registerTime
+        )
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+        <choose>
+            <when test="jurisdiction !=null">
+                <![CDATA[
+                #{jurisdiction,jdbcType=TIMESTAMP},
+            ]]>
+            </when>
+            <otherwise>
+                default,
+            </otherwise>
+        </choose>
+        default, default, default
+        )
+    </insert>
     <update id="updateByPrimaryKey" parameterType="cn.soc.securityoperationscenter.entity.Users">
         update users
         set username = #{username,jdbcType=VARCHAR},
@@ -70,7 +80,7 @@
     registerTime
     from users
     where telephone = #{telephone,jdbcType=VARCHAR} or
-     email = #{telephone,jdbcType=VARCHAR}
+     email = #{email,jdbcType=VARCHAR}
   </select>
 
 </mapper>

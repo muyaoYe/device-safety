@@ -26,6 +26,6 @@ public interface UsersMapper {
      * @param email
      * @return
      */
-    Users validateTelephoneEmail(@Param("telephone") String telephone,@Param("email")  String email);
+    List<Users> validateTelephoneEmail(@Param("telephone") String telephone,@Param("email")  String email);
 
 }

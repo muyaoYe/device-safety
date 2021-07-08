@@ -79,8 +79,8 @@ public class UserController {
         String telephone = json.getString("phone");
         String email = json.getString("email");
         //查询手机以及邮箱是否已经被使用
-        if (usersService.isOnlyTelephoneEmail(telephone,email)==1){
-            return new CommonResult(CodeEnum.ERROR.getValue(),"手机或者邮箱已经被使用",null);
+        if (usersService.isOnlyTelephoneEmail(telephone, email) != null) {
+            return new CommonResult(CodeEnum.ERROR.getValue(), "手机或者邮箱已经被使用", null);
         }
         Users user = new Users();
         user.setUsername(username);
@@ -96,6 +96,34 @@ public class UserController {
         }
 
     }
+
+    //添加用户
+    @RequestMapping("/addUser")
+    public CommonResult addUser(@RequestBody JSONObject json) {
+        String username = json.getString("username");
+        String telephone = json.getString("telephone");
+        String email = json.getString("email");
+        int jurisdiction = json.getInteger("jurisdiction");
+        //查询手机以及邮箱是否已经被使用
+        if (usersService.isOnlyTelephoneEmail(telephone, email) != null) {
+            return new CommonResult(CodeEnum.ERROR.getValue(), "手机或者邮箱已经被使用", null);
+        }
+        Users user = new Users();
+        user.setUsername(username);
+        user.setPassword("123123");
+        user.setJurisdiction(jurisdiction);
+        user.setTelephone(telephone);
+        user.setEmail(email);
+
+        int i = usersService.insert(user);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), user);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
+
+    }
+
 
     //退出登录
     @RequestMapping("/logout")
@@ -116,53 +144,69 @@ public class UserController {
 
     //用户管理查询所有用户
     @RequestMapping("/userList")
-    public CommonResult userList() {
+    public CommonResult userList(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
+//        Integer pageSize = json.getInteger("pageSize");
         //查询用户列表
-        PageResult pageResult = usersService.selectAll(1,0);
+        PageResult pageResult = usersService.selectAll(pageNum, 5);
         //返回
         return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
     }
 
-//    //修改用户信息
-//    @RequestMapping("/update")
-//    public CommonResult update(@RequestBody JSONObject json) {
-//        int id = Integer.parseInt(json.getString("id"));
-//        String password = json.getString("password");
-//        String telephone = json.getString("telephone");
-//        String email = json.getString("email");
-//        int jurisdiction = Integer.parseInt(json.getString("jurisdiction"));
-//        Users user = new Users();
-//        user.setId(id);
-//        //暂不开放用户名的修改
-//        user.setUsername(usersService.selectByPrimaryKey(id).getUsername());
-//        user.setPassword(password);
-//        user.setTelephone(telephone);
-//        user.setEmail(email);
-//        user.setJurisdiction(jurisdiction);
-//        //暂不开放状态的修改
-//        user.setStatus(usersService.selectByPrimaryKey(id).getStatus());
-//        //暂不开放最后登录时间的修改
-//        user.setLastlogintime(usersService.selectByPrimaryKey(id).getLastlogintime());
-//        //暂不开放注册时间的修改
-//        user.setRegistertime(usersService.selectByPrimaryKey(id).getRegistertime());
-//        int i = usersService.updateByPrimaryKey(user);
-//        if (i != 0) {
-//            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), usersService.selectAll());
-//        } else {
-//            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
-//        }
-//    }
-//
-//    //删除用户
-//    @RequestMapping("/delete")
-//    public CommonResult delete(@RequestBody JSONObject json) {
-//        int id = Integer.parseInt(json.getString("id"));
-//        int i = usersService.deleteByPrimaryKey(id);
-//        if (i != 0) {
-//            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), usersService.selectAll());
-//        } else {
-//            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
-//        }
-//    }
+    //修改用户信息
+    @RequestMapping("/update")
+    public CommonResult update(@RequestBody JSONObject json) {
+//        修改的用户
+        int id = Integer.parseInt(json.getString("id"));
+//        常规修改
+        String telephone = json.getString("telephone");
+        String email = json.getString("email");
+        int jurisdiction = Integer.parseInt(json.getString("jurisdiction"));
+        String username = json.getString("username");
+//        特殊处理
+        String password = json.getString("password");
+//        获取改用户全部信息
+        Users user = usersService.selectByPrimaryKey(id);
+        //查询手机以及邮箱是否已经被使用
+        int[] onlyTelephoneEmail = usersService.isOnlyTelephoneEmail(telephone, email);
+        /**
+         * 判断是否重复方法，
+         * 首先如果重复数组一定不为空，如果数组长度大于2，必定重复
+         *                          如果数组长度等于1，则id与自己不符合是重复
+         */
+        if (onlyTelephoneEmail != null && (
+                onlyTelephoneEmail.length >= 2 ||
+                        (onlyTelephoneEmail.length == 1 && onlyTelephoneEmail[0] != user.getId())
+        )) {
+            return new CommonResult(CodeEnum.ERROR.getValue(), "手机或者邮箱已经被使用", null);
+        }
+//        修改信息
+        user.setJurisdiction(jurisdiction);
+        user.setTelephone(telephone);
+        user.setEmail(email);
+        user.setUsername(username);
+//        特殊处理
+        if (password != null && !password.equals("")) {
+            user.setPassword(password);
+        }
+        int i = usersService.updateByPrimaryKey(user);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
+    }
+
+    //删除用户
+    @RequestMapping("/delete")
+    public CommonResult delete(@RequestBody JSONObject json) {
+        int id = Integer.parseInt(json.getString("id"));
+        int i = usersService.deleteByPrimaryKey(id);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
+    }
 
 }
