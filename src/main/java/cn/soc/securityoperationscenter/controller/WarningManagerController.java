@@ -58,14 +58,48 @@ public class WarningManagerController {
         int i = warningManagerService.insert(warningManager);
         //重新求值
         List<WarningManager> warningManagerList = warningManagerService.selectAll();
+        List<WarningManagerShow> list = new ArrayList<>();
+        for (WarningManager warning : warningManagerList) {
+            WarningManagerShow warningManagerShow = new WarningManagerShow();
+            warningManagerShow.setId(warning.getId());
+            warningManagerShow.setMissionName(warning.getMissionName());
+            warningManagerShow.setMissionStatus(warning.getMissionStatus());
+            warningManagerShow.setCreatePerson(usersService.selectByPrimaryKey(warning.getCreatePerson()).getUsername());
+            warningManagerShow.setCreateTime(warning.getCreateTime());
+            list.add(warningManagerShow);
+        }
         //返回
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), warningManagerList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), list);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), warningManagerList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), list);
         }
     }
 
+    @RequestMapping("/deleteWarning")
+    public CommonResult delete(@RequestBody JSONObject json){
+        //得到传值
+        int id = Integer.parseInt(json.getString("id"));
+        int i = warningManagerService.deleteByPrimaryKey(id);
+        //重新求值
+        List<WarningManager> warningManagerList = warningManagerService.selectAll();
+        List<WarningManagerShow> list = new ArrayList<>();
+        for (WarningManager warning : warningManagerList) {
+            WarningManagerShow warningManagerShow = new WarningManagerShow();
+            warningManagerShow.setId(warning.getId());
+            warningManagerShow.setMissionName(warning.getMissionName());
+            warningManagerShow.setMissionStatus(warning.getMissionStatus());
+            warningManagerShow.setCreatePerson(usersService.selectByPrimaryKey(warning.getCreatePerson()).getUsername());
+            warningManagerShow.setCreateTime(warning.getCreateTime());
+            list.add(warningManagerShow);
+        }
+        //返回
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), list);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), list);
+        }
+    }
 
 
 }
