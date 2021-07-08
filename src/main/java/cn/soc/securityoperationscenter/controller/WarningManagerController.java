@@ -3,12 +3,15 @@ package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
 import cn.soc.securityoperationscenter.entity.WarningManager;
+import cn.soc.securityoperationscenter.entity.WarningManagerShow;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
+import cn.soc.securityoperationscenter.service.IUsersService;
 import cn.soc.securityoperationscenter.service.IWarningManagerService;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,12 +24,24 @@ public class WarningManagerController {
     @Autowired
     private IWarningManagerService warningManagerService;
 
+    @Autowired
+    private IUsersService usersService;
+
     @RequestMapping("/selectAll")
     public CommonResult selectAll() {
         //查找所有的安全通告预警
         List<WarningManager> warningManagerList = warningManagerService.selectAll();
-
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),warningManagerList );
+        List<WarningManagerShow> list = new ArrayList<>();
+        for (WarningManager warning : warningManagerList) {
+            WarningManagerShow warningManagerShow = new WarningManagerShow();
+            warningManagerShow.setId(warning.getId());
+            warningManagerShow.setMissionName(warning.getMissionName());
+            warningManagerShow.setMissionStatus(warning.getMissionStatus());
+            warningManagerShow.setCreatePerson(usersService.selectByPrimaryKey(warning.getCreatePerson()).getUsername());
+            warningManagerShow.setCreateTime(warning.getCreateTime());
+            list.add(warningManagerShow);
+        }
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),list );
     }
 
     @RequestMapping("/createWarning")
@@ -50,6 +65,7 @@ public class WarningManagerController {
             return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), warningManagerList);
         }
     }
+
 
 
 }
