@@ -1,6 +1,7 @@
 package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.RiskCheckMission;
 import cn.soc.securityoperationscenter.entity.RiskTrackMission;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
@@ -30,16 +31,19 @@ public class IntegrationController {
 
     //查询所有风险任务
     @RequestMapping("/checkAll")
-    public CommonResult selectAllCheck(){
+    public CommonResult selectAllCheck(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //查找所有风险任务
-        List<RiskCheckMission> riskCheckMissionList = riskCheckMissionService.selectAll();
+        PageResult pageResult = riskCheckMissionService.selectAll(pageNum, 5);
         //将列表返回
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),riskCheckMissionList);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),pageResult);
     }
 
     //新增主机风险任务
     @RequestMapping("/reateTaskHost")
     public CommonResult createCheck(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
+
         //获取输入
         String missionName = json.getString("missionName");
         //还会输入资产范围、关联资产、扫描方式、执行时间
@@ -53,56 +57,62 @@ public class IntegrationController {
         //新增操作
         int i = riskCheckMissionService.insert(riskCheckMission);
         //重新请求
-        List<RiskCheckMission> riskCheckMissionList = riskCheckMissionService.selectAll();
+        //查找所有风险任务
+        PageResult pageResult = riskCheckMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskCheckMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskCheckMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
     //删除风险任务
     @RequestMapping("/deleteCheck")
     public CommonResult deleteCheck(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //通过id删除
         Integer id = Integer.parseInt(json.getString("id"));
         int i = riskCheckMissionService.deleteByPrimaryKey(id);
         //重新请求
-        List<RiskCheckMission> riskCheckMissionList = riskCheckMissionService.selectAll();
+        //查找所有风险任务
+        PageResult pageResult = riskCheckMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskCheckMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskCheckMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
     //查询所有风险跟踪
     @RequestMapping("/trackAll")
-    public CommonResult selectAllTrack(){
+    public CommonResult selectAllTrack(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //查找所有风险跟踪
-        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionService.selectAll();
+        PageResult pageResult = riskTrackMissionService.selectAll(pageNum, 5);
         //fanhui
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),riskTrackMissionList);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),pageResult);
     }
 
     //删除风险跟踪
     @RequestMapping("/deleteTrack")
     public CommonResult deleteTrack(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //通过id删除
         Integer id = Integer.parseInt(json.getString("id"));
         int i = riskTrackMissionService.deleteByPrimaryKey(id);
         //重新请求
-        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionService.selectAll();
+        PageResult pageResult = riskTrackMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskTrackMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskTrackMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
     //现有风险任务跟踪
     @RequestMapping("/createTaskExists")
     public CommonResult createTarck(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //获取输入
         String missionName = json.getString("missionName");
         //还会输入资产范围、关联资产、扫描方式、执行时间
@@ -116,11 +126,11 @@ public class IntegrationController {
         //新增操作
         int i = riskTrackMissionService.insert(riskTrackMission);
         //重新请求
-        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionService.selectAll();
+        PageResult pageResult = riskTrackMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), riskTrackMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), riskTrackMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 

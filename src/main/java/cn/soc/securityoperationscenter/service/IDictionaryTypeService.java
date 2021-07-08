@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.DictionaryType;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IDictionaryTypeService {
 
     DictionaryType selectByPrimaryKey(Integer id);
 
-    List<DictionaryType> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(DictionaryType record);
 

@@ -2,9 +2,12 @@ package cn.soc.securityoperationscenter.service.impl;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.RiskTrackMissionMapper;
 import cn.soc.securityoperationscenter.entity.RiskTrackMission;
 import cn.soc.securityoperationscenter.service.IRiskTrackMissionService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,10 +38,18 @@ public class IRiskTrackMissionServiceImpl implements IRiskTrackMissionService {
     }
 
     @Override
-    public List<RiskTrackMission> selectAll() {
-        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionMapper.selectAll();
-        return riskTrackMissionList;
+    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        riskTrackMissionMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
+
+//    @Override
+//    public List<RiskTrackMission> selectAll() {
+//        List<RiskTrackMission> riskTrackMissionList = riskTrackMissionMapper.selectAll();
+//        return riskTrackMissionList;
+//    }
 
     @Override
     public int updateByPrimaryKey(RiskTrackMission record) {

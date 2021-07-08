@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.Assets;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface IAssetService {
 
     Assets selectByPrimaryKey(Integer id);
 
-    List<Assets> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(Assets record);
 }

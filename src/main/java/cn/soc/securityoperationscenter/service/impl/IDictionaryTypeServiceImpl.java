@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.DictionaryTypeMapper;
 import cn.soc.securityoperationscenter.entity.DictionaryType;
 import cn.soc.securityoperationscenter.service.IDictionaryTypeService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +37,18 @@ public class IDictionaryTypeServiceImpl implements IDictionaryTypeService {
     }
 
     @Override
-    public List<DictionaryType> selectAll() {
-        List<DictionaryType> dictionaryTypeList = dictionaryTypeMapper.selectAll();
-        return dictionaryTypeList;
+    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        dictionaryTypeMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
+
+//    @Override
+//    public List<DictionaryType> selectAll() {
+//        List<DictionaryType> dictionaryTypeList = dictionaryTypeMapper.selectAll();
+//        return dictionaryTypeList;
+//    }
 
     @Override
     public int updateByPrimaryKey(DictionaryType record) {

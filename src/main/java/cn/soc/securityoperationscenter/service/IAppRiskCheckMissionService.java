@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.AppRiskCheckMission;
 
 
@@ -15,7 +16,7 @@ public interface IAppRiskCheckMissionService {
 
     AppRiskCheckMission selectByPrimaryKey(Integer id);
 
-    List<AppRiskCheckMission> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(AppRiskCheckMission record);
 }

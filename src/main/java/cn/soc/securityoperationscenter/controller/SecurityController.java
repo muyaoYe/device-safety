@@ -1,6 +1,7 @@
 package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.AppRiskCheckMission;
 import cn.soc.securityoperationscenter.entity.AppRiskTrackMission;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.yaml.snakeyaml.events.Event;
 
 
 import java.util.Date;
@@ -29,15 +31,17 @@ public class SecurityController {
 
     //查询所有应用安全检测-list
     @RequestMapping("/checkAll")
-    public CommonResult selectAllCheck() {
+    public CommonResult selectAllCheck(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
         //得到集合
-        List<AppRiskCheckMission> appRiskCheckMissionList = appRiskCheckMissionService.selectAll();
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskCheckMissionList);
+        PageResult pageResult = appRiskCheckMissionService.selectAll(pageNum, 5);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
     }
 
     //创建应用安全检测
     @RequestMapping("/createRiskCheck")
     public CommonResult insertCheck(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
         //得到参数
         String missionName = json.getString("missionName");
         Date cretaTime = new Date();
@@ -54,11 +58,11 @@ public class SecurityController {
         //insert操作
         int i = appRiskCheckMissionService.insert(appRiskCheck);
         //重新请求
-        List<AppRiskCheckMission> appRiskCheckMissionList = appRiskCheckMissionService.selectAll();
+        PageResult pageResult = appRiskCheckMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskCheckMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskCheckMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
 
     }
@@ -66,39 +70,44 @@ public class SecurityController {
     //删除应用安全检测数据
     @RequestMapping("/deleteCheck")
     public  CommonResult deleteCheck(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //获取要删除的id的索引
         Integer id = Integer.parseInt(json.getString("id"));
         //删除操作
         int i = appRiskCheckMissionService.deleteByPrimaryKey(id);
         //重新请求数据
-        List<AppRiskCheckMission> appRiskCheckMissionList = appRiskCheckMissionService.selectAll();
+        PageResult pageResult = appRiskCheckMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskCheckMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskCheckMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 
 
     //应用风险跟踪
     @RequestMapping("/trackAll")
-    public CommonResult selectAllRisk(){
+    public CommonResult selectAllRisk(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //查询所有风险跟踪值
-        List<AppRiskTrackMission> appRiskTrackMissionList = appRiskTrackMissionService.selectAll();
-        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskTrackMissionList);
+        PageResult pageResult = appRiskTrackMissionService.selectAll(pageNum, 5);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
     }
 
     //应用风险跟踪创建
     @RequestMapping("/createRiskTrack")
     public CommonResult insertTrack(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
         //得到参数
         String missionName = json.getString("missionName");
         Date createTime = new Date();
+        String missionType = json.getString("missionType");
         Date updateTime = new Date();
 
         //创建对象接收参数
         AppRiskTrackMission appRiskTrack = new AppRiskTrackMission();
         appRiskTrack.setMissionName(missionName);
+        appRiskTrack.setMissionType(missionType);
         //任务名称/扫描模板/备注
         //创建时间
         appRiskTrack.setCreateTime(createTime);
@@ -108,11 +117,30 @@ public class SecurityController {
         //insert操作
         int i = appRiskTrackMissionService.insert(appRiskTrack);
         //请求数据
-        List<AppRiskTrackMission> appRiskTrackMissionList = appRiskTrackMissionService.selectAll();
+        PageResult pageResult = appRiskTrackMissionService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), appRiskTrackMissionList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
         }else {
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), appRiskTrackMissionList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
+        }
+    }
+
+
+    //应用风险跟踪创建
+    @RequestMapping("/deleteTrack")
+    public CommonResult deleteTrack(@RequestBody JSONObject json) {
+        Integer pageNum = json.getInteger("pageNum");
+        //得到参数
+        Integer id = json.getInteger("id");
+
+        //shanchu
+        int i = appRiskTrackMissionService.deleteByPrimaryKey(id);
+        //请求数据
+        PageResult pageResult = appRiskTrackMissionService.selectAll(pageNum, 5);
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
+        }else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), pageResult);
         }
     }
 

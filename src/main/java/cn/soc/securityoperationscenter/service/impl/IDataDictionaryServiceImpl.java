@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.DataDictionaryMapper;
 import cn.soc.securityoperationscenter.entity.DataDictionary;
 import cn.soc.securityoperationscenter.service.IDataDictionaryService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +37,18 @@ public class IDataDictionaryServiceImpl implements IDataDictionaryService {
     }
 
     @Override
-    public List<DataDictionary> selectAll() {
-        List<DataDictionary> dataDictionaryList = dataDictionaryMapper.selectAll();
-        return dataDictionaryList;
+    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        dataDictionaryMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
+
+//    @Override
+//    public List<DataDictionary> selectAll() {
+//        List<DataDictionary> dataDictionaryList = dataDictionaryMapper.selectAll();
+//        return dataDictionaryList;
+//    }
 
     @Override
     public int updateByPrimaryKey(DataDictionary record) {

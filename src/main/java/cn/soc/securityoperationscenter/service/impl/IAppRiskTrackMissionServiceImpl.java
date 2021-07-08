@@ -1,9 +1,12 @@
 package cn.soc.securityoperationscenter.service.impl;
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.dao.AppRiskTrackMissionMapper;
 import cn.soc.securityoperationscenter.entity.AppRiskTrackMission;
 import cn.soc.securityoperationscenter.service.IAppRiskTrackMissionService;
+import cn.soc.securityoperationscenter.utils.PageHelperUtils;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,10 +37,18 @@ public class IAppRiskTrackMissionServiceImpl implements IAppRiskTrackMissionServ
     }
 
     @Override
-    public List<AppRiskTrackMission> selectAll() {
-        List<AppRiskTrackMission> appRiskTrackMissionList = appRiskTrackMissionMapper.selectAll();
-        return appRiskTrackMissionList;
+    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+        Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
+        appRiskTrackMissionMapper.selectAll();
+        PageResult pageResult = PageHelperUtils.getPageResult(page);
+        return pageResult;
     }
+
+//    @Override
+//    public List<AppRiskTrackMission> selectAll() {
+//        List<AppRiskTrackMission> appRiskTrackMissionList = appRiskTrackMissionMapper.selectAll();
+//        return appRiskTrackMissionList;
+//    }
 
     @Override
     public int updateByPrimaryKey(AppRiskTrackMission record) {

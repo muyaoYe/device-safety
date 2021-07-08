@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.AppRiskTrackMission;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface IAppRiskTrackMissionService {
 
     AppRiskTrackMission selectByPrimaryKey(Integer id);
 
-    List<AppRiskTrackMission> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(AppRiskTrackMission record);
 }

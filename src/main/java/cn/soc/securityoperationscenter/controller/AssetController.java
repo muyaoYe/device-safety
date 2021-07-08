@@ -1,6 +1,7 @@
 package cn.soc.securityoperationscenter.controller;
 
 import cn.soc.securityoperationscenter.common.CommonResult;
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.Assets;
 import cn.soc.securityoperationscenter.entity.Users;
 import cn.soc.securityoperationscenter.enums.CodeEnum;
@@ -25,18 +26,20 @@ public class AssetController {
 
     //查询所有资产
     @RequestMapping("/assetAll")
-    public CommonResult selectAllAsset(){
+    public CommonResult selectAllAsset(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //查询所有资产返回集合
-        List<Assets> assetsList = assetService.selectAll();
+        PageResult pageResult = assetService.selectAll(pageNum, 5);
 
         //找到的返回给前端
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),assetsList);
+        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),pageResult);
 
     }
 
     //新增资产
     @RequestMapping("/createAsset")
     public CommonResult createAsset(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //获取输入
         String intranetIp = json.getString("intranetIp");
         String intranetPort = json.getString("intranetPort");
@@ -82,23 +85,28 @@ public class AssetController {
         //进行insert操作
         int i = assetService.insert(asset);
 
-        //返回
-        return new CommonResult(CodeEnum.SUCCESS.getValue(),CodeEnum.SUCCESS.getText(),null);
+        PageResult pageResult = assetService.selectAll(pageNum, 5);
+        if(i!=0){
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
+        }else{
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),pageResult);
+        }
     }
 
 //    删除资产
     @RequestMapping("/deleteAsset")
     public CommonResult deleteAsset(@RequestBody JSONObject json){
+        Integer pageNum = json.getInteger("pageNum");
         //得到id
         Integer id = json.getInteger("id");
         //通过id删除
         int i = assetService.deleteByPrimaryKey(id);
         //删除完之后在返回一次数据
-        List<Assets> assetsList = assetService.selectAll();
+        PageResult pageResult = assetService.selectAll(pageNum, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),assetsList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),assetsList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),pageResult);
         }
     }
 
@@ -152,11 +160,11 @@ public class AssetController {
         //进行update操作
         int i = assetService.updateByPrimaryKey(asset);
         //更新完之后在返回一次数据
-        List<Assets> assetsList = assetService.selectAll();
+        PageResult pageResult = assetService.selectAll(1, 5);
         if(i!=0){
-            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),assetsList);
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
         }else{
-            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),assetsList);
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(),pageResult);
         }
     }
 

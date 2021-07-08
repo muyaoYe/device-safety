@@ -2,6 +2,7 @@ package cn.soc.securityoperationscenter.service;
 
 
 
+import cn.soc.securityoperationscenter.common.PageResult;
 import cn.soc.securityoperationscenter.entity.DataDictionary;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface IDataDictionaryService {
 
     DataDictionary selectByPrimaryKey(Integer id);
 
-    List<DataDictionary> selectAll();
+    PageResult selectAll(Integer pageNum , Integer pageSize);
 
     int updateByPrimaryKey(DataDictionary record);
 
