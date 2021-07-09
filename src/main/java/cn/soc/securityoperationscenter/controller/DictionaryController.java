@@ -8,7 +8,6 @@ import cn.soc.securityoperationscenter.enums.CodeEnum;
 import cn.soc.securityoperationscenter.service.IDataDictionaryService;
 import cn.soc.securityoperationscenter.service.IDictionaryTypeService;
 import com.alibaba.fastjson.JSONObject;
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
