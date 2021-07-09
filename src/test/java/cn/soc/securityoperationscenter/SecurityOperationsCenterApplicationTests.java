@@ -24,7 +24,7 @@ class SecurityOperationsCenterApplicationTests {
     void contextLoads() {
         Page<Object> page = PageHelper.startPage(1,3);
 //        page.setOrderBy("id desc");
-        List<Users> users = usersMapper.selectAll();
+//        List<Users> users = usersMapper.selectAll();
         System.out.println("-----------------------------");
         System.out.println(page);
     }

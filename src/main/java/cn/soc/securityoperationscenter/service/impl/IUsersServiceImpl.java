@@ -36,9 +36,9 @@ public class IUsersServiceImpl implements IUsersService {
     }
 
     @Override
-    public PageResult selectAll(Integer pageNum , Integer pageSize) {
+    public PageResult selectAll(Integer pageNum , Integer pageSize,Users users) {
         Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
-        usersMapper.selectAll();
+        usersMapper.selectAll(users);
         PageResult pageResult = PageHelperUtils.getPageResult(page);
         return pageResult;
     }

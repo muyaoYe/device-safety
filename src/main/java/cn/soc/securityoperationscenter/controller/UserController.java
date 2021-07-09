@@ -57,12 +57,11 @@ public class UserController {
         Users users = usersService.selectByPrimaryKey(id);
         Map<String, Object> map = new HashMap<>();
         String[] strings = new String[1];
-//        if (users.getJurisdiction() == 1) {
-//            strings[0] = "admin";
-//        } else {
-//            strings[0] = "";
-//        }
-        strings[0] = "admin";
+        if (users.getJurisdiction() == 1) {
+            strings[0] = "admin";
+        } else {
+            strings[0] = "user";
+        }
         map.put("permissions", strings);
         map.put("username", users.getUsername());
         map.put("user", users);
@@ -146,9 +145,25 @@ public class UserController {
     @RequestMapping("/userList")
     public CommonResult userList(@RequestBody JSONObject json) {
         Integer pageNum = json.getInteger("pageNum");
+        Users users = new Users();
+        String telephone = json.getString("telephone");
+        String email = json.getString("email");
+        String status1 = json.getString("status");
+        Integer status = null;
+        if (status1 != null && !status1.equals("")) {
+            status = Integer.parseInt(status1);
+        }
+        String username = json.getString("username");
 //        Integer pageSize = json.getInteger("pageSize");
+        users.setTelephone(telephone);
+        users.setEmail(email);
+        users.setStatus(status);
+        users.setUsername(username);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//        System.out.println(users.getStatus().toString());
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         //查询用户列表
-        PageResult pageResult = usersService.selectAll(pageNum, 5);
+        PageResult pageResult = usersService.selectAll(pageNum, 5, users);
         //返回
         return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), pageResult);
     }
@@ -163,8 +178,6 @@ public class UserController {
         String email = json.getString("email");
         int jurisdiction = Integer.parseInt(json.getString("jurisdiction"));
         String username = json.getString("username");
-//        特殊处理
-        String password = json.getString("password");
 //        获取改用户全部信息
         Users user = usersService.selectByPrimaryKey(id);
         //查询手机以及邮箱是否已经被使用
@@ -185,10 +198,6 @@ public class UserController {
         user.setTelephone(telephone);
         user.setEmail(email);
         user.setUsername(username);
-//        特殊处理
-        if (password != null && !password.equals("")) {
-            user.setPassword(password);
-        }
         int i = usersService.updateByPrimaryKey(user);
         if (i != 0) {
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
@@ -197,6 +206,28 @@ public class UserController {
         }
     }
 
+
+    //修改用户信息
+    @RequestMapping("/updatePassword")
+    public CommonResult updatePassword(@RequestHeader("id") int id ,@RequestBody JSONObject json) {
+//        特殊处理
+        String password = json.getString("password");
+//        获取改用户全部信息
+        Users user = usersService.selectByPrimaryKey(id);
+//        特殊处理
+        System.out.println(password);
+        if (password == null || password.equals("")) {
+            return new CommonResult(CodeEnum.ERROR.getValue(),"密码为空",null);
+        }
+        user.setPassword(password);
+        System.out.println(user.getPassword());
+        int i = usersService.updateByPrimaryKey(user);
+        if (i != 0) {
+            return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(), null);
+        } else {
+            return new CommonResult(CodeEnum.ERROR.getValue(), CodeEnum.ERROR.getText(), null);
+        }
+    }
     //删除用户
     @RequestMapping("/delete")
     public CommonResult delete(@RequestBody JSONObject json) {

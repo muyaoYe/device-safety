@@ -14,7 +14,15 @@ public interface IUsersService {
 
     Users selectByPrimaryKey(Integer id);
 
-    PageResult selectAll(Integer pageNum , Integer pageSize);
+    /**
+     * 实现分页查询与模糊查询一体化
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param users
+     * @return
+     */
+    PageResult selectAll(Integer pageNum, Integer pageSize, Users users);
 
     int updateByPrimaryKey(Users record);
 
@@ -24,6 +32,7 @@ public interface IUsersService {
      * 电话已经邮箱是否已经被使用
      * 已经被使用返回-使用人id
      * 未被使用返回-0
+     *
      * @param telephone
      * @param email
      * @return
