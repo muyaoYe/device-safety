@@ -18,4 +18,5 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedMethods(ORIGINS) // 当前站点支持的跨域请求类型是什么
                 .maxAge(3600); // 超时时长设置为1小时。 时间单位是秒。
     }
+
 }

@@ -50,6 +50,7 @@ public class LibraryController {
             warningLibraryShow.setMissionSubType(warning.getMissionSubType());
             warningLibraryShow.setCreatePerson(usersService.selectByPrimaryKey(warning.getCreatePerson()).getUsername());
             warningLibraryShow.setCreateTime(warning.getCreateTime());
+            warningLibraryShow.setUrl(warning.getUrl());
             list.add(warningLibraryShow);
         }
         pageResult.setList(list);
@@ -69,6 +70,7 @@ public class LibraryController {
             announcementLibraryShow.setAnnouncementName(announcement.getAnnouncementName());
             announcementLibraryShow.setCreatePerson(usersService.selectByPrimaryKey(announcement.getCreatePerson()).getUsername());
             announcementLibraryShow.setCreateTime(announcement.getCreateTime());
+            announcementLibraryShow.setUrl(announcement.getUrl());
             list.add(announcementLibraryShow);
         }
         pageResult.setList(list);
@@ -89,6 +91,7 @@ public class LibraryController {
             operationLibraryShow.setOperationType(operation.getOperationType());
             operationLibraryShow.setCreatePerson(usersService.selectByPrimaryKey(operation.getCreatePerson()).getUsername());
             operationLibraryShow.setCreateTime(operation.getCreateTime());
+            operationLibraryShow.setUrl(operation.getUrl());
             list.add(operationLibraryShow);
         }
         pageResult.setList(list);
@@ -109,6 +112,7 @@ public class LibraryController {
             responseLibraryShow.setResponseType(response.getResponseType());
             responseLibraryShow.setCreatePerson(usersService.selectByPrimaryKey(response.getCreatePerson()).getUsername());
             responseLibraryShow.setCreateTime(response.getCreateTime());
+            responseLibraryShow.setUrl(response.getUrl());
             list.add(responseLibraryShow);
         }
         pageResult.setList(list);
