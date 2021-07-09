@@ -14,7 +14,7 @@ public interface IDictionaryTypeService {
 
     DictionaryType selectByPrimaryKey(Integer id);
 
-    PageResult selectAll(Integer pageNum , Integer pageSize);
+    PageResult selectAll(Integer pageNum , Integer pageSize , String name);
 
     int updateByPrimaryKey(DictionaryType record);
 

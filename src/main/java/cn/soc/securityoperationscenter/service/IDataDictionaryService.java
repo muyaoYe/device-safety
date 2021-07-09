@@ -14,7 +14,7 @@ public interface IDataDictionaryService {
 
     DataDictionary selectByPrimaryKey(Integer id);
 
-    PageResult selectAll(Integer pageNum , Integer pageSize);
+    PageResult selectAll(Integer pageNum , Integer pageSize , String dictioaryName);
 
     int updateByPrimaryKey(DataDictionary record);
 

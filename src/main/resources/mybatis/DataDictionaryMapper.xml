@@ -38,10 +38,15 @@
     from data_dictionary
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String">
     select id, dictionary_name, dictionary_core, dictionary_value, data_type, dictionary_type, 
     note
-    from data_dictionary
+    from data_dictionary where 1=1
+    <if test="dictionaryName !=null and dictionaryName != '' ">
+      <![CDATA[
+        and dictionary_name like concat ('%', #{dictionaryName,jdbcType=VARCHAR},'%')
+        ]]>
+    </if>
   </select>
 
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">

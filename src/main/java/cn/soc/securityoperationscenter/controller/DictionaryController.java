@@ -36,8 +36,11 @@ public class DictionaryController {
         Integer pageNum = json.getInteger("pageNum");
         System.out.println(json);
 
+        //获取输入
+        String dictionaryName = json.getString("dictionaryName");
+
         //查询所有数据字典
-        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5);
+        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5,dictionaryName);
         System.out.println(pageNum);
 
         return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
@@ -68,7 +71,7 @@ public class DictionaryController {
         //新增操作
         int i = dataDictionaryService.insert(dataDictionary);
         //重新请求数据
-        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5);
+        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5,null);
         //如果新增成功
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
@@ -112,7 +115,7 @@ public class DictionaryController {
         //进行更新
         int i = dataDictionaryService.updateByPrimaryKey(dataDictionary);
         //重新请求数据
-        PageResult pageResult = dataDictionaryService.selectAll(1, 5);
+        PageResult pageResult = dataDictionaryService.selectAll(1, 5,null);
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
         }else{
@@ -130,7 +133,7 @@ public class DictionaryController {
         //通过id删除
         int i = dataDictionaryService.deleteByPrimaryKey(id);
         //重新获取数据
-        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5);
+        PageResult pageResult = dataDictionaryService.selectAll(pageNum, 5,null);
         //如果删除成功
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
@@ -142,9 +145,10 @@ public class DictionaryController {
     //查询所有字典类型
     @RequestMapping("/dictionaryType")
     public CommonResult selectAllType(@RequestBody JSONObject json){
+        String name = json.getString("name");
         Integer pageNum = json.getInteger("pageNum");
         //查询所有数据字典
-        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5);
+        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5,name);
         //把查询结果返回
         return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
     }
@@ -165,7 +169,7 @@ public class DictionaryController {
         //新增
         int i = dictionaryTypeService.insert(dictionaryType);
         //重新请求
-        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5);
+        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5,null);
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
         }else{
@@ -191,7 +195,7 @@ public class DictionaryController {
         //通过id更新操作
         int i = dictionaryTypeService.updateByPrimaryKey(dictionaryType);
         //重新请求数据
-        PageResult pageResult = dictionaryTypeService.selectAll(1, 5);
+        PageResult pageResult = dictionaryTypeService.selectAll(1, 5,null);
 
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
@@ -210,7 +214,7 @@ public class DictionaryController {
         //通过id删除
         int i = dictionaryTypeService.deleteByPrimaryKey(id);
         //删除之后再请求一次数据
-        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5);
+        PageResult pageResult = dictionaryTypeService.selectAll(pageNum, 5,null);
         if(i!=0){
             return new CommonResult(CodeEnum.SUCCESS.getValue(), CodeEnum.SUCCESS.getText(),pageResult);
         }else{

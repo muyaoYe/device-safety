@@ -14,7 +14,7 @@ public interface DataDictionaryMapper {
 
     DataDictionary selectByPrimaryKey(Integer id);
 
-    List<DataDictionary> selectAll();
+    List<DataDictionary> selectAll(String dictioaryName);
 
     int updateByPrimaryKey(DataDictionary record);
 

@@ -41,7 +41,12 @@ public class SecurityController {
     //创建应用安全检测
     @RequestMapping("/createRiskCheck")
     public CommonResult insertCheck(@RequestBody JSONObject json) {
+        //分页
         Integer pageNum = json.getInteger("pageNum");
+        //是否添加到应用风险跟踪
+//        Boolean flag = false;
+        Boolean check = json.getBoolean("check");
+//        if(check!=null){flag=true;}
         //得到参数
         String missionName = json.getString("missionName");
         Date cretaTime = new Date();
@@ -57,6 +62,20 @@ public class SecurityController {
 
         //insert操作
         int i = appRiskCheckMissionService.insert(appRiskCheck);
+
+        //是否添加到应用风险跟踪
+        if (check!=null){
+            AppRiskTrackMission appRiskTrack = new AppRiskTrackMission();
+//            appRiskTrack.set
+            appRiskTrack.setMissionName(missionName);
+            appRiskTrack.setCreateTime(cretaTime);
+            appRiskTrack.setUpdateTime(cretaTime);
+            //添加操作
+            int insert = appRiskTrackMissionService.insert(appRiskTrack);
+        }else {
+            System.out.println("不勾选");
+        }
+
         //重新请求
         PageResult pageResult = appRiskCheckMissionService.selectAll(pageNum, 5);
         if(i!=0){

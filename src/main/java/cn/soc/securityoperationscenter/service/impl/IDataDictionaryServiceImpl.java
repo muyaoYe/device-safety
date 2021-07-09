@@ -37,9 +37,9 @@ public class IDataDictionaryServiceImpl implements IDataDictionaryService {
     }
 
     @Override
-    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+    public PageResult selectAll(Integer pageNum, Integer pageSize, String dictioaryName) {
         Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
-        dataDictionaryMapper.selectAll();
+        dataDictionaryMapper.selectAll(dictioaryName);
         PageResult pageResult = PageHelperUtils.getPageResult(page);
         return pageResult;
     }

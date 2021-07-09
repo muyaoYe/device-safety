@@ -37,9 +37,9 @@ public class IDictionaryTypeServiceImpl implements IDictionaryTypeService {
     }
 
     @Override
-    public PageResult selectAll(Integer pageNum, Integer pageSize) {
+    public PageResult selectAll(Integer pageNum, Integer pageSize, String name) {
         Page<Object> page = PageHelperUtils.page(pageNum,pageSize);
-        dictionaryTypeMapper.selectAll();
+        dictionaryTypeMapper.selectAll(name);
         PageResult pageResult = PageHelperUtils.getPageResult(page);
         return pageResult;
     }
