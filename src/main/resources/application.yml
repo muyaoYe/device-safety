@@ -5,7 +5,7 @@ spring:
     classPath: src/main/resources/jdbc/mybatis-generator-core-1.3.7.jar
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ZtyLCmM2cPWzPcfX
-#    jdbc_url: jdbc:mysql://42.193.148.230:3306/soc?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true
+    #    jdbc_url: jdbc:mysql://42.193.148.230:3306/soc?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true
     url: jdbc:mysql://42.193.148.230:3306/soc?serverTimezone=UTC
     username: soc
     project: src/main/java
@@ -34,12 +34,19 @@ mybatis:
 
 #配置端口号
 server:
-  port=8080
-
+  port: 8080
+  ssl:
+    key-store: classpath:device-safety.cn.jks
+#    key-password: 5ox73308o3y
+    key-store-type: JKS
+#    key-store-provider:
+#    key-alias: tomcat
+    key-store-password: 5ox73308o3y
 
 #配置分页插件
 pagehelper:
   helperDialect=mysql
+
 
 
 
