@@ -35,17 +35,17 @@ mybatis:
 #配置端口号
 server:
   port: 8080
-  ssl:
-    key-store: classpath:device-safety.cn.jks
+#  ssl:
+#    key-store: classpath:device-safety.cn.jks
 #    key-password: 5ox73308o3y
-    key-store-type: JKS
+#    key-store-type: JKS
 #    key-store-provider:
 #    key-alias: tomcat
-    key-store-password: 5ox73308o3y
+#    key-store-password: 5ox73308o3y
 
 #配置分页插件
 pagehelper:
-  helperDialect=mysql
+  helperDialect: mysql
 
 
 

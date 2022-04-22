@@ -1,5 +1,9 @@
 package cn.soc.securityoperationscenter.enums;
 
+/**
+ * @author wjs
+ */
+
 public enum CodeEnum {
     SUCCESS(200, "success"),
 
